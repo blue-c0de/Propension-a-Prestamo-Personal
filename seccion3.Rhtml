@@ -1,0 +1,194 @@
+<header class="section-header">
+  <p class="section-kicker">Fase 3</p>
+  <h2>Análisis Exploratorio de Datos (EDA)</h2>
+  <p class="section-subtitle">
+    En esta fase analizamos el comportamiento de las variables, detectamos patrones relevantes 
+    y revisamos la calidad de los datos para preparar el terreno de modelado.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!--                   3.1 ANÁLISIS UNIVARIADO             -->
+<!-- ===================================================== -->
+
+<section class="card">
+  <h3>Análisis Univariado</h3>
+  <p>
+    El objetivo del análisis univariado es comprender la distribución de variables clave como 
+    <strong>edad</strong>, <strong>ingresos</strong>, <strong>gasto promedio con tarjeta</strong>, 
+    y la variable objetivo <strong>aceptó préstamo</strong>. Esto permite entender el perfil general 
+    del cliente promedio y detectar valores atípicos.
+  </p>
+
+  <h4>Distribución de la Edad</h4>
+
+  <!-- Código mostrado -->
+  <!--begin.rcode echo=TRUE, eval=FALSE
+hist(clientes$Age, 
+     main="Distribución de Edad",
+     xlab="Edad",
+     col="#e6fff5",
+     border="#00994d")
+end.rcode-->
+
+  <!-- Resultado -->
+  <div>
+  <!--begin.rcode echo=FALSE
+hist(clientes$Age, 
+     main="Distribución de Edad",
+     xlab="Edad",
+     col="#e6fff5",
+     border="#00994d")
+end.rcode-->
+  </div>
+
+
+  <h4>Ingresos Anuales</h4>
+
+  <!-- Código -->
+  <!--begin.rcode echo=TRUE, eval=FALSE
+hist(clientes$Income, 
+     main="Distribución de Ingresos",
+     xlab="Ingresos (miles USD)",
+     col="#e6fff5",
+     border="#00994d")
+end.rcode-->
+
+  <!-- Resultado -->
+  <div>
+  <!--begin.rcode echo=FALSE
+hist(clientes$Income, 
+     main="Distribución de Ingresos",
+     xlab="Ingresos (miles USD)",
+     col="#e6fff5",
+     border="#00994d")
+end.rcode-->
+  </div>
+
+  <h4>Variable objetivo: Aceptación del Préstamo</h4>
+
+  <!-- Código -->
+  <!--begin.rcode echo=TRUE, eval=FALSE
+tabla_objetivo <- table(clientes$Personal.Loan)
+cat("<pre>\n", pretty_sql_table(tabla_objetivo), "\n</pre>")
+end.rcode-->
+
+  <!-- Resultado -->
+  <div>
+  <!--begin.rcode echo=FALSE
+tabla_objetivo <- table(clientes$Personal.Loan)
+cat("<pre>\n", pretty_sql_table(tabla_objetivo), "\n</pre>")
+end.rcode-->
+  </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!--               3.2 ANÁLISIS BIVARIADO                 -->
+<!-- ===================================================== -->
+
+<section class="card">
+  <h3>Análisis Bivariado</h3>
+  <p>
+    En esta etapa analizamos relaciones entre variables, especialmente aquellas que pueden 
+    influir en la aceptación del préstamo. Este análisis ayuda a anticipar qué variables 
+    son candidatas para el modelo predictivo.
+  </p>
+
+  <h4>Ingresos vs. Aceptación del Préstamo</h4>
+
+  <!-- Código -->
+  <!--begin.rcode echo=TRUE, eval=FALSE
+boxplot(Income ~ Personal.Loan, 
+        data = clientes,
+        main="Ingresos según aceptación",
+        xlab="Aceptó Préstamo",
+        ylab="Ingresos",
+        col=c("#e6fff5", "#00994d"))
+end.rcode-->
+
+  <!-- Resultado -->
+  <div>
+  <!--begin.rcode echo=FALSE
+boxplot(Income ~ Personal.Loan, 
+        data = clientes,
+        main="Ingresos según aceptación",
+        xlab="Aceptó Préstamo",
+        ylab="Ingresos",
+        col=c("#e6fff5", "#00994d"))
+end.rcode-->
+  </div>
+
+
+  <h4>Gasto con Tarjeta (CCAvg) vs Aceptación</h4>
+
+  <!-- Código -->
+  <!--begin.rcode echo=TRUE, eval=FALSE
+boxplot(CCAvg ~ Personal.Loan,
+        data = clientes,
+        main="Gasto en tarjeta vs aceptación",
+        xlab="Aceptó Préstamo",
+        ylab="Gasto (miles USD)",
+        col=c("#e6fff5", "#00994d"))
+end.rcode-->
+
+  <!-- Resultado -->
+  <div>
+  <!--begin.rcode echo=FALSE
+boxplot(CCAvg ~ Personal.Loan,
+        data = clientes,
+        main="Gasto en tarjeta vs aceptación",
+        xlab="Aceptó Préstamo",
+        ylab="Gasto (miles USD)",
+        col=c("#e6fff5", "#00994d"))
+end.rcode-->
+  </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!--               3.3 PROBLEMAS EN LOS DATOS             -->
+<!-- ===================================================== -->
+
+<section class="card ">
+  <h3>Problemas detectados en los datos</h3>
+
+  <ul>
+    <li><strong>Desbalance de clases:</strong> sólo el 9.6% aceptó el préstamo → afecta modelos tradicionales.</li>
+    <li><strong>Valores negativos en experiencia laboral:</strong> algunos registros tienen experiencia &lt; 0.</li>
+    <li><strong>Sesgos en altos ingresos:</strong> ingresos muy altos generan colas en la distribución.</li>
+    <li><strong>Correlación fuerte entre ingresos y CCAvg:</strong> podrían generar multicolinealidad.</li>
+    <li><strong>Posible información redundante:</strong> ZIP Code no contribuye al análisis predictivo.</li>
+  </ul>
+</section>
+
+
+<!-- ===================================================== -->
+<!--               3.4 ¿QUÉ NOS DICEN LOS DATOS?          -->
+<!-- ===================================================== -->
+
+<section class="card" style="border-left: 4px solid #00994d;">
+  <h3>¿Qué nos dicen los datos?</h3>
+
+  <p>El análisis exploratorio revela varios patrones importantes:</p>
+
+  <ul>
+    <li><strong>Los clientes que aceptan el préstamo tienen ingresos más altos</strong> y mayor gasto con tarjeta.</li>
+    <li><strong>Usar banca online correlaciona positivamente</strong> con aceptar productos nuevos.</li>
+    <li>Los clientes con mayor educación tienden a tener mayor probabilidad de aceptación.</li>
+    <li>La experiencia laboral tiene estructura razonable, pero incluye valores anómalos (&lt; 0).</li>
+    <li><strong>La variable objetivo está muy desbalanceada</strong>, lo que afectará al entrenamiento de modelos.</li>
+  </ul>
+
+  <p>
+    En conjunto, los datos sugieren que el perfil de un cliente que acepta el préstamo incluye:
+    <strong>ingresos medios/altos, gasto regular en tarjeta, buen uso de banca digital y nivel educativo medio-alto</strong>.
+  </p>
+
+</section>
+
+</div>

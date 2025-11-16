@@ -1,0 +1,306 @@
+/* Reset básico */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #003d1f;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Por defecto, ocultamos el h1 */
+.nav-left h1 {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 20px;
+  margin-right: 30px;
+}
+
+/* Cuando NO estamos en el hero, lo mostramos */
+.nav-left h1.visible {
+  opacity: 1;
+  color: white;
+}
+
+.logo-btn {
+    border: none;
+    background: transparent;
+    cursor: default;
+    padding: 0;
+}
+
+.nav-right ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.nav-right a {
+    text-decoration: none;
+    font-size: 13px;
+    color: white;
+    font-weight: 500;
+}
+
+/* Link activo → VERDE CORPORATIVO */
+.nav-right a.active {
+    color: orange;
+    border-bottom: 2px solid orange;
+}
+
+/* HEADER / HERO – con gradiente verde suave */
+.hero {
+    min-height: 100vh;
+    padding-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(135deg, #e6fff0, #f5f5f5);
+}
+
+.hero-content h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.hero-content p {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+}
+
+/* Botón héroe → verde oscuro */
+.btn-hero {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: none;
+    background-color: #007a3d;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* CONTENIDO PRINCIPAL */
+.content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px 60px 20px;
+}
+
+.section {
+    padding: 60px 0;
+    border-bottom: 1px solid #ddd;
+    scroll-margin-top: 100px;
+}
+
+.section h2 {
+    margin-bottom: 10px;
+}
+
+p{
+  text-align: justify;
+}
+
+strong{
+  color: #003d1f;
+}
+
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section-header {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.section-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+  color: #4b5563;
+  max-width: 60rem;
+}
+
+/* Cards */
+.card {
+  background: #ffffff;
+  padding: 1.5rem 1.75rem;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+/* Card con acento → verde oscuro */
+.card-highlight {
+  border-left: 4px solid #007a3d;
+}
+
+/* Sección tag azul → AHORA VERDE SUAVE */
+.section-tag {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #e6fff5;  /* verde pastel */
+  color: #006837;       /* verde oscuro */
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ALERT ROJO (lo dejo igual porque es alerta) */
+.section-tag-alert {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #ffecec;   
+  color: #b91c1c; 
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Tabla ajustable */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.table-container pre {
+  margin: 0;
+  white-space: pre;
+}
+
+/* Citas con borde verde */
+.quote-business {
+  border-left: 4px solid #007a3d;
+  padding-left: 12px;
+  margin: 1rem 0;
+  color: #1f2933;
+  font-style: italic;
+}
+
+.data-grid,
+.tech-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0 0.5rem;
+}
+
+@media (min-width: 900px) {
+  .data-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .tech-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.tech-item.tech-wide {
+  grid-column: 1 / -1;
+}
+
+.card-center {
+  text-align: center;
+}
+
+.bullets-inline li {
+  margin-bottom: 0.25rem;
+}
+
+.note {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.tech-item {
+  background: #ffffff;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
+}
+
+.tech-item h4 {
+  margin-top: 0;
+}
+
+.tech-wide {
+  grid-column: 1 / -1;
+}
+
+.tech-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: .75rem;
+}
+
+.tech-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  text-align: center;
+  gap: .25rem;
+}
+
+.tech-icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.tech-icon span {
+  font-size: .8rem;
+  color: #374151;
+}
+
+/* Terminal */
+.terminal {
+  background: #111827;
+  color: #e5e7eb;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-family: "Courier New", monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    font-size: 13px;
+}

@@ -1,0 +1,1146 @@
+<html>
+<head>
+<style type="text/css">
+.inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.sng {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.def {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
+  <title>Propensión a Prestamo Personal</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="shortcut icon" href="figure/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="figure/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <!-- NAVBAR FIJO -->
+  <div class="navbar">
+    <div class="nav-left">
+      <button class="logo-btn">
+        <svg width="48" height="48" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- Contorno hexágono -->
+          <path d="M 60 10 L 100 35 L 100 85 L 60 110 L 20 85 L 20 35 Z"
+                stroke="#00b36b" stroke-width="3" fill="none" />
+        
+          <!-- Pieza izquierda (antes #06b6d4) -->
+          <path d="M 50 35 L 35 43 L 35 77 L 50 85 L 50 75 L 45 72 L 45 48 L 50 45 Z"
+                fill="#00b36b" />
+        
+          <!-- Pieza derecha (antes #2563eb) -->
+          <path d="M 85 43 L 70 35 L 70 45 L 75 48 L 75 60 L 70 60 L 70 70 L 80 70 L 85 67 L 85 43 Z
+                   M 75 72 L 70 75 L 70 85 L 85 77 L 85 72 Z"
+                fill="#007a3d" />
+        </svg>
+      </button>
+      <h1>Propensión a Préstamo Personal</h1>
+    </div>
+
+    <div class="nav-right">
+      <ul>
+        <li><a href="#seccion1">Definir el proyecto y el conjunto de datos</a></li>
+        <li><a href="#seccion2">Organización y Entendimiento de Datos</a></li>
+        <li><a href="#seccion3">Análisis Exploratorio de Datos</a></li>
+        <li><a href="#seccion4">Análisis de Regresión</a></li>
+        <li><a href="#seccion5">Análisis de Regresión Logística</a></li>
+        <li><a href="#seccion6">Análisis de Conglomerados</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- HEADER / HERO A PANTALLA COMPLETA -->
+  <header id="hero" class="hero">
+    <div class="hero-content">
+      <h2>Propensión a Préstamo Personal</h2>
+      <p style="font-size: 22px;">Celeste Javiera Sánchez Guillén</p>
+      <p>Fundamentos Ciencia de Datos · Universidad Alfonso X El Sabio</p>
+      <a href="#seccion1" class="btn-hero">Ir al análisis</a>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL (6 SECCIONES) -->
+  <main class="content">
+    <section id="seccion1" class="section">
+
+<div class="section-block">
+  <!-- TITULAR PRINCIPAL -->
+  <header class="section-header">
+    <p class="section-kicker">Fase 1</p>
+    <h2>Definir el proyecto y el conjunto de datos</h2>
+    <p class="section-subtitle">
+      De una campaña masiva de préstamos personales a una estrategia inteligente basada en datos.
+    </p>
+  </header>
+
+  <!-- PROBLEMA DE NEGOCIO -->
+  <section class="card">
+    <h3>Introducción – El Problema de Negocio</h3>
+    <h4>¿Qué decisión quiere tomar el banco?</h4>
+    <p>
+      Una entidad bancaria desea aumentar la conversión de su campaña de préstamos personales. 
+      Para ello, construiremos todo el flujo de valor: exploraremos los datos, identificaremos las 
+      variables que más influyen en la decisión de compra, prepararemos la información y entrenaremos 
+      modelos de <strong>Machine Learning</strong> (como regresión logística y árboles de decisión) para responder 
+      a una pregunta de negocio muy sencilla pero de enorme impacto:
+    </p>
+
+    <blockquote class="quote-business">
+      <em>“Dado el perfil y la relación actual de un cliente con el banco, ¿comprará o no un crédito personal si se lo ofrecemos?”</em>
+    </blockquote>
+
+    <p>
+      La decisión de negocio consiste en <strong>a quién dirigir la campaña (segmentación)</strong> y con qué 
+      <strong>intensidad (priorización)</strong>, maximizando el retorno (ROI) y minimizando el contacto a clientes con 
+      baja propensión.
+    </p>
+  </section>
+
+  <!-- PREGUNTAS DE NEGOCIO -->
+  <section class="card">
+    <h3>Preguntas clave de negocio</h3>
+    <p>El proyecto de ciencia de datos buscará responder, entre otras, a estas preguntas:</p>
+    <ol class="business-questions">
+      <li><strong>Probabilidad de aceptación:</strong> ¿Cuál es la probabilidad de que un cliente acepte un préstamo personal?</li>
+      <li><strong>Drivers de la conversión:</strong> ¿Qué variables explican mejor la aceptación (por ejemplo, ingresos, uso de tarjeta, educación)?</li>
+      <li><strong>Umbral operativo:</strong> ¿Cómo fijar un <em>cut-off</em> para priorizar la campaña y estimar el ROI esperado?</li>
+    </ol>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="card card-split">
+    <div class="card-column">
+      <h3>Objetivo general</h3>
+      <p class="section-tag">Visión global</p>
+      <ul>
+        <li>Desarrollar un sistema de análisis y predicción de propensión para préstamos personales.</li>
+      </ul>
+    </div>
+
+    <div class="card-column">
+      <h3>Objetivos específicos</h3>
+      <p class="section-tag">Acciones concretas</p>
+      <ul>
+        <li>Realizar un análisis exploratorio y de calidad de datos.</li>
+        <li>Entrenar y evaluar modelos (regresión logística y árboles de decisión / gradient boosting).</li>
+        <li>Definir métricas específicas para evaluar la calidad del modelo de clasificación (ROC-AUC, Precision@K, Lift, curva de ganancias).</li>
+        <li>Diseñar un informe empresarial con resultados o un dashboard ejecutivo para soporte a decisión.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FUENTES DE DATOS -->
+  <section class="card">
+    <h3>Fuentes de datos</h3>
+    <h4>Descripción del dataset</h4>
+    <p>
+      A partir de los registros internos del banco se construye una muestra de <strong>5.000 clientes reales</strong> 
+      (debidamente anonimizados), recopilando para cada uno información clave de negocio:
+    </p>
+
+    <div class="data-grid">
+      <div class="data-item">
+        <h5>Perfil del cliente</h5>
+        <p>Edad, ingresos, años de experiencia laboral, nivel educativo, estado civil, etc.</p>
+      </div>
+      <div class="data-item">
+        <h5>Relación con el banco</h5>
+        <p>Presencia de hipoteca, uso de banca online, seguros, tarjetas, saldos medios, productos contratados.</p>
+      </div>
+      <div class="data-item">
+        <h5>Respuesta a la campaña</h5>
+        <p>Variable objetivo: si aceptó o no el crédito personal ofrecido en la última campaña.</p>
+      </div>
+    </div>
+
+    <p>
+      No se trata de una base teórica, sino del <strong>histórico de una campaña real</strong>: de esos 5.000 clientes, 
+      solo 480 (un 9,6 %) dijeron “sí” al préstamo. Ese comportamiento pasado es el que se aprovechará 
+      para anticipar resultados futuros.
+    </p>
+
+    <p>
+      Con esta información, el banco plantea un reto muy concreto: 
+      <strong>ser capaz de predecir, antes de lanzar la campaña, qué clientes tienen alta probabilidad de aceptar un crédito personal</strong>. 
+      Así, marketing puede invertir el presupuesto donde realmente tiene retorno:
+    </p>
+
+    <ul class="bullets-inline">
+      <li>Segmentando mejor a quién se contacta.</li>
+      <li>Personalizando mensajes según el perfil.</li>
+      <li>Reduciendo el coste por conversión de cada nuevo préstamo concedido.</li>
+    </ul>
+
+    <p class="note">
+      Esta es la historia que hay detrás de la data: una campaña real, un presupuesto limitado y una decisión clave 
+      para el banco: usar la analítica avanzada para hablar <strong>con las personas adecuadas, en el momento adecuado y con la oferta adecuada</strong>.
+    </p>
+  </section>
+
+  <!-- PLAN DE TRABAJO -->
+  <section class="card card-center">
+    <h3>Plan de Trabajo</h3>
+    <p>El proyecto seguirá una estructura por fases, desde el entendimiento del problema hasta la evaluación del modelo en negocio.</p>
+    <img src="figure/plan.png" alt="Plan de trabajo del proyecto" style="max-width: 700px; width: 100%; border-radius: 8px;"/>
+  </section>
+
+  <!-- METODOLOGÍA -->
+  <section class="card card-split">
+    <div class="card-column">
+      <h3>Metodología</h3>
+      <h4>¿Cómo se hará el análisis inicial de los datos?</h4>
+      <p>
+        El análisis inicial se enfocará en comprender la estructura de la base de clientes del banco y 
+        en identificar patrones tempranos relacionados con la aceptación del préstamo personal. 
+        En una primera fase, se realizará un <strong>Análisis Exploratorio de Datos (EDA)</strong> con doble enfoque:
+      </p>
+      
+      <ul>
+        <li>
+          <strong>Análisis descriptivo del cliente:</strong> distribución de edad, ingresos, experiencia laboral, 
+          nivel educativo y otros atributos demográficos para entender la composición de la cartera.
+        </li>
+        <li>
+          <strong>Análisis del comportamiento financiero:</strong> productos contratados, uso de banca online, 
+          presencia de hipotecas, saldos medios y otras variables que caracterizan la relación del cliente con el banco.
+        </li>
+      </ul>
+      
+      <p>
+        Posteriormente, se investigarán las diferencias entre los clientes que 
+        <strong>aceptaron el préstamo</strong> y los que <strong>no lo aceptaron</strong>, identificando señales tempranas 
+        que indiquen propensión. Se analizarán correlaciones, importancia preliminar de variables, presencia 
+        de valores atípicos y consistencia de la información.
+      </p>
+    </div>
+
+    <div class="card-column">
+      <h4>¿Qué técnicas se usarán?</h4>
+      <p>
+        Dado que la variable objetivo del proyecto —aceptar o no el crédito personal— es 
+        <strong>dicotómica (binaria)</strong>, el proyecto empleará principalmente 
+        <strong>modelos de clasificación supervisada</strong>.</p>
+      <p>
+        En primera instancia, se considerarán modelos lineales, modelos de árboles y métodos de boosting, 
+        complementados con la selección del umbral óptimo mediante curvas Precision–Recall 
+        y maximización del beneficio esperado. Este enfoque permite tanto interpretar el comportamiento 
+        del cliente como obtener un modelo altamente predictivo para priorizar adecuadamente la campaña.
+      </p>
+
+      
+      <h3>Entregables del proyecto</h3>
+      <ul>
+        <li><strong>Documento PDF</strong> con el análisis, resultados y conclusiones de negocio.</li>
+        <li><strong>Notebook (R/Python)</strong> con el código utilizado para el análisis y modelado.</li>
+        <li><strong>Dashboard o resumen ejecutivo</strong> con indicadores clave para el área de marketing y dirección.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TECNOLOGÍA -->
+  <section class="card">
+  <h3>Tecnología y herramientas</h3>
+
+  <div class="tech-grid">
+
+    <!-- Gestión de datos -->
+    <div class="tech-item">
+      <h4>Gestión de datos</h4>
+      <p>Archivos CSV locales y bases de datos SQL.</p>
+    </div>
+
+    <!-- Lenguajes -->
+    <div class="tech-item">
+      <h4>Lenguajes y librerías</h4>
+
+      <div class="tech-icons">
+
+        <!-- R -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/r/r-original.svg" alt="R" />
+          <span>R</span>
+        </div>
+
+        <!-- Python -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="Python" />
+          <span>Python</span>
+        </div>
+
+        <!-- HTML -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML" />
+          <span>HTML</span>
+        </div>
+
+        <!-- CSS -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" alt="CSS" />
+          <span>CSS</span>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="JavaScript" />
+          <span>JavaScript</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- IDE -->
+    <div class="tech-item">
+      <h4>Plataforma de desarrollo</h4>
+      <p>RStudio como entorno principal de trabajo.</p>
+    </div>
+
+    <!-- Git -->
+    <div class="tech-item">
+      <h4>Control de versiones</h4>
+      <p>Git y GitHub.</p>
+    </div>
+
+    <!-- Referencias -->
+    <div class="tech-item tech-wide">
+      <h4>Referencias</h4>
+      <p>
+        Kaggle · Metodología <em>CRISP-DM</em> · Documentación oficial de librerías de Machine Learning.
+      </p>
+    </div>
+
+  </div>
+</section>
+</div>
+    </section>
+
+    <section id="seccion2" class="section">
+
+<!-- ========================= -->
+<!--   SETUP BASE DE DATOS    -->
+<!--   (se ejecuta una vez)   -->
+<!-- ========================= -->
+
+      
+
+
+<!-- TITULAR PRINCIPAL -->
+<header class="section-header">
+  <p class="section-kicker">Fase 2</p>
+  <h2>Organización y Entendimiento de Datos</h2>
+  <p class="section-subtitle">
+    Para garantizar una correcta gestión y organización de la información del proyecto, se creó una 
+    base de datos relacional en SQLite. 
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!--                      2.1 BASES DE DATOS               -->
+<!-- ===================================================== -->
+
+<section class="card">
+  <h3>Trabajo con Bases de Datos</h3>
+  <div class="tech-grid">
+      <div class="data-item">
+          <h4>Creación de la tabla</h4>
+          <pre><code>CREATE TABLE clientes_prestamo (
+            id_cliente INT PRIMARY KEY,
+            edad INT,
+            experiencia INT,
+            ingresos INT,
+            codigo_postal INT,
+            familia INT,
+            saldo_promedio FLOAT,
+            educacion INT,
+            hipotecario INT,
+            acepto_prestamo INT,
+            cuenta_valores INT,
+            cuenta_plazo_fijo INT,
+            uso_banca_online INT,
+            tarjeta_credito INT
+        );</code></pre>
+
+<!-- ===================================================== -->
+<!--                CONSULTA 2                             -->
+<!-- ===================================================== -->
+
+        <h4>2) Ingresos promedio según aceptación</h4>
+      
+        <pre><code>SELECT acepto_prestamo,
+             AVG(ingresos) AS ingresos_promedio
+      FROM clientes_prestamo
+      GROUP BY acepto_prestamo;</code></pre>
+      
+        <div class="terminal">
+<pre>
+ 
+
+Aceptó.Préstamo    Ingreso.Promedio..miles.USD.
+----------------  -----------------------------
+NO                                     66.23739
+SÍ                                    144.74583 
+</pre>
+        </div>  
+      </div>
+      <div class="data-item">
+<!-- ===================================================== -->
+<!--                CONSULTA 1                             -->
+<!-- ===================================================== -->
+        <h4>1) Distribución de aceptación del préstamo</h4>
+
+        <pre><code>SELECT acepto_prestamo, COUNT(*) AS total_clientes
+      FROM clientes_prestamo
+      GROUP BY acepto_prestamo;</code></pre>
+      
+        <div class="terminal">
+<pre>
+ 
+
+Aceptó.Préstamo    Total.Clientes
+----------------  ---------------
+NO                           4520
+SÍ                            480 
+</pre>
+        </div>
+
+<!-- ===================================================== -->
+<!--                CONSULTA 3                             -->
+<!-- ===================================================== -->
+        <h4>3) Uso de banca online y aceptación del préstamo</h4>
+      
+        <pre><code>SELECT uso_banca_online,
+             COUNT(*) AS total_clientes,
+             SUM(acepto_prestamo) AS aceptaron,
+             SUM(acepto_prestamo)*1.0/COUNT(*) AS tasa_aceptacion
+      FROM clientes_prestamo
+      GROUP BY uso_banca_online;</code></pre>
+      
+        <div class="terminal">
+<pre>
+ 
+
+Usa.Banca.Online    Total.Clientes   Aceptaron   Tasa.Aceptación
+-----------------  ---------------  ----------  ----------------
+NO                            2016         189         0.0937500
+SÍ                            2984         291         0.0975201 
+</pre>
+        </div>
+      </div>
+    </div>
+    
+    
+<!-- ===================================================== -->
+<!--                CONSULTA 4                             -->
+<!-- ===================================================== -->
+    <h4>4) Hipoteca y probabilidad de aceptar el préstamo</h4>
+  
+    <pre><code>SELECT hipotecario,
+         COUNT(*) AS total_clientes,
+         SUM(acepto_prestamo) AS aceptaron,
+         SUM(acepto_prestamo)*1.0/COUNT(*) AS tasa_aceptacion
+  FROM clientes_prestamo
+  GROUP BY hipotecario;</code></pre>
+  
+    <div class="terminal">
+  
+
+  
+      <!-- TABLA 10 FILAS -->
+      <div id="tabla3_10">
+        <pre>
+
+
+ Tiene.Hipoteca   Total.Clientes   Aceptaron   Tasa.Aceptación
+---------------  ---------------  ----------  ----------------
+              0             3462         312         0.0901213
+             75                8           1         0.1250000
+             76               12           1         0.0833333
+             77                4           0         0.0000000
+             78               15           0         0.0000000
+             79               11           0         0.0000000
+             80                7           0         0.0000000
+             81               13           1         0.0769231
+             82               10           1         0.1000000
+             83               16           0         0.0000000
+        </pre>
+      </div>
+  
+      <!-- TABLA COMPLETA OCULTA -->
+      <div id="tabla3_full" style="display:none;">
+        <pre>
+
+
+ Tiene.Hipoteca   Total.Clientes   Aceptaron   Tasa.Aceptación
+---------------  ---------------  ----------  ----------------
+              0             3462         312         0.0901213
+             75                8           1         0.1250000
+             76               12           1         0.0833333
+             77                4           0         0.0000000
+             78               15           0         0.0000000
+             79               11           0         0.0000000
+             80                7           0         0.0000000
+             81               13           1         0.0769231
+             82               10           1         0.1000000
+             83               16           0         0.0000000
+             84               11           1         0.0909091
+             85                7           0         0.0000000
+             86               11           2         0.1818182
+             87               14           0         0.0000000
+             88                9           1         0.1111111
+             89               16           0         0.0000000
+             90               15           0         0.0000000
+             91               16           1         0.0625000
+             92                4           0         0.0000000
+             93                4           0         0.0000000
+             94               14           1         0.0714286
+             95               11           0         0.0000000
+             96                7           0         0.0000000
+             97               12           1         0.0833333
+             98               17           0         0.0000000
+             99                6           2         0.3333333
+            100               12           0         0.0000000
+            101               14           0         0.0000000
+            102               15           0         0.0000000
+            103               16           0         0.0000000
+            104               14           0         0.0000000
+            105                8           0         0.0000000
+            106               13           2         0.1538462
+            107                6           0         0.0000000
+            108               10           0         0.0000000
+            109               13           0         0.0000000
+            110                8           0         0.0000000
+            111               11           2         0.1818182
+            112               13           0         0.0000000
+            113               10           0         0.0000000
+            114                8           0         0.0000000
+            115               11           2         0.1818182
+            116               13           0         0.0000000
+            117               10           0         0.0000000
+            118               14           1         0.0714286
+            119               16           1         0.0625000
+            120               12           2         0.1666667
+            121               12           1         0.0833333
+            122                8           0         0.0000000
+            123                9           1         0.1111111
+            124                7           0         0.0000000
+            125                6           0         0.0000000
+            126                7           0         0.0000000
+            127                7           0         0.0000000
+            128                9           0         0.0000000
+            129                7           0         0.0000000
+            130                6           0         0.0000000
+            131               14           0         0.0000000
+            132                8           1         0.1250000
+            133                3           0         0.0000000
+            134                6           1         0.1666667
+            135               10           0         0.0000000
+            136                6           0         0.0000000
+            137               11           0         0.0000000
+            138                8           1         0.1250000
+            139                4           0         0.0000000
+            140                8           1         0.1250000
+            141                6           0         0.0000000
+            142               10           1         0.1000000
+            143                3           0         0.0000000
+            144               13           1         0.0769231
+            145                6           0         0.0000000
+            146                9           1         0.1111111
+            147                8           1         0.1250000
+            148                9           0         0.0000000
+            149                9           2         0.2222222
+            150                6           1         0.1666667
+            151               10           0         0.0000000
+            152                4           0         0.0000000
+            153               11           0         0.0000000
+            154                7           0         0.0000000
+            155                6           0         0.0000000
+            156                5           0         0.0000000
+            157                8           0         0.0000000
+            158               11           1         0.0909091
+            159                9           0         0.0000000
+            160                3           0         0.0000000
+            161               10           1         0.1000000
+            162                4           0         0.0000000
+            163                6           1         0.1666667
+            164                8           0         0.0000000
+            165                3           0         0.0000000
+            166                9           0         0.0000000
+            167                9           1         0.1111111
+            168                3           0         0.0000000
+            169                8           0         0.0000000
+            170                8           1         0.1250000
+            171                5           1         0.2000000
+            172                5           0         0.0000000
+            173                1           0         0.0000000
+            174                8           0         0.0000000
+            175                4           1         0.2500000
+            176                3           1         0.3333333
+            177                3           0         0.0000000
+            178                5           0         0.0000000
+            179                4           0         0.0000000
+            180                5           0         0.0000000
+            181                4           0         0.0000000
+            182                6           0         0.0000000
+            183                2           1         0.5000000
+            184               11           2         0.1818182
+            185               12           0         0.0000000
+            186                3           0         0.0000000
+            187                6           0         0.0000000
+            188                5           0         0.0000000
+            189                4           0         0.0000000
+            190                4           0         0.0000000
+            191                1           0         0.0000000
+            192                6           1         0.1666667
+            193                7           0         0.0000000
+            194                8           1         0.1250000
+            195                1           0         0.0000000
+            196                7           0         0.0000000
+            197                3           1         0.3333333
+            198                5           2         0.4000000
+            199                4           0         0.0000000
+            200                4           0         0.0000000
+            201                2           0         0.0000000
+            202                2           0         0.0000000
+            203                4           1         0.2500000
+            204                7           1         0.1428571
+            205                8           1         0.1250000
+            206                1           0         0.0000000
+            207                8           0         0.0000000
+            208                3           0         0.0000000
+            209                5           2         0.4000000
+            210                1           1         1.0000000
+            211                4           1         0.2500000
+            212                5           1         0.2000000
+            213                3           1         0.3333333
+            214                3           0         0.0000000
+            215                3           0         0.0000000
+            216                3           1         0.3333333
+            217                5           0         0.0000000
+            218                8           0         0.0000000
+            219                7           0         0.0000000
+            220                5           0         0.0000000
+            221                9           2         0.2222222
+            222                2           0         0.0000000
+            223                3           0         0.0000000
+            224                4           0         0.0000000
+            225                2           0         0.0000000
+            226                3           0         0.0000000
+            227                5           1         0.2000000
+            228                3           0         0.0000000
+            229                7           2         0.2857143
+            230                7           0         0.0000000
+            231                4           1         0.2500000
+            232                4           0         0.0000000
+            233                2           0         0.0000000
+            234                2           1         0.5000000
+            235                1           0         0.0000000
+            236                6           0         0.0000000
+            237                1           1         1.0000000
+            238                3           0         0.0000000
+            239                3           0         0.0000000
+            240                6           1         0.1666667
+            241                4           0         0.0000000
+            242                3           0         0.0000000
+            243                2           0         0.0000000
+            244                4           0         0.0000000
+            245                4           0         0.0000000
+            246                2           1         0.5000000
+            247                4           0         0.0000000
+            248                3           0         0.0000000
+            249                7           1         0.1428571
+            250                2           0         0.0000000
+            251                6           2         0.3333333
+            252                2           0         0.0000000
+            253                1           1         1.0000000
+            255                3           1         0.3333333
+            256                5           0         0.0000000
+            257                3           0         0.0000000
+            258                1           0         0.0000000
+            259                2           1         0.5000000
+            260                3           1         0.3333333
+            262                2           0         0.0000000
+            263                3           0         0.0000000
+            264                3           0         0.0000000
+            265                1           0         0.0000000
+            266                2           1         0.5000000
+            267                2           0         0.0000000
+            268                3           0         0.0000000
+            270                3           0         0.0000000
+            271                2           0         0.0000000
+            272                5           1         0.2000000
+            273                1           0         0.0000000
+            275                3           0         0.0000000
+            276                2           0         0.0000000
+            277                3           1         0.3333333
+            278                1           0         0.0000000
+            280                2           0         0.0000000
+            281                1           1         1.0000000
+            282                3           3         1.0000000
+            283                1           0         0.0000000
+            284                1           0         0.0000000
+            285                3           0         0.0000000
+            286                1           0         0.0000000
+            287                2           0         0.0000000
+            289                2           0         0.0000000
+            290                1           0         0.0000000
+            292                2           1         0.5000000
+            293                2           0         0.0000000
+            294                5           2         0.4000000
+            295                1           1         1.0000000
+            296                1           0         0.0000000
+            297                4           1         0.2500000
+            298                1           0         0.0000000
+            299                2           1         0.5000000
+            300                1           0         0.0000000
+            301                5           5         1.0000000
+            302                1           0         0.0000000
+            303                2           0         0.0000000
+            304                2           1         0.5000000
+            305                3           1         0.3333333
+            306                2           0         0.0000000
+            307                5           2         0.4000000
+            308                3           1         0.3333333
+            309                2           0         0.0000000
+            310                3           1         0.3333333
+            311                1           0         0.0000000
+            312                2           1         0.5000000
+            313                2           0         0.0000000
+            314                2           0         0.0000000
+            315                3           1         0.3333333
+            318                1           1         1.0000000
+            319                3           1         0.3333333
+            321                1           0         0.0000000
+            322                2           0         0.0000000
+            323                3           0         0.0000000
+            325                3           1         0.3333333
+            326                1           0         0.0000000
+            327                3           2         0.6666667
+            328                3           0         0.0000000
+            329                3           1         0.3333333
+            330                2           0         0.0000000
+            331                1           0         0.0000000
+            333                3           0         0.0000000
+            334                1           0         0.0000000
+            336                1           0         0.0000000
+            337                1           0         0.0000000
+            341                3           0         0.0000000
+            342                4           3         0.7500000
+            343                1           1         1.0000000
+            344                1           0         0.0000000
+            345                1           0         0.0000000
+            351                1           1         1.0000000
+            352                3           1         0.3333333
+            353                1           0         0.0000000
+            354                2           1         0.5000000
+            355                1           0         0.0000000
+            357                2           1         0.5000000
+            358                2           1         0.5000000
+            359                2           1         0.5000000
+            360                1           0         0.0000000
+            361                1           0         0.0000000
+            364                2           1         0.5000000
+            366                3           0         0.0000000
+            368                2           1         0.5000000
+            372                2           2         1.0000000
+            373                1           1         1.0000000
+            374                1           1         1.0000000
+            378                1           1         1.0000000
+            380                3           1         0.3333333
+            381                1           0         0.0000000
+            382                1           0         0.0000000
+            383                1           0         0.0000000
+            385                1           0         0.0000000
+            389                1           0         0.0000000
+            391                1           1         1.0000000
+            392                2           0         0.0000000
+            394                2           0         0.0000000
+            396                1           0         0.0000000
+            397                2           0         0.0000000
+            398                1           0         0.0000000
+            400                3           2         0.6666667
+            402                2           0         0.0000000
+            403                1           0         0.0000000
+            405                1           0         0.0000000
+            406                1           0         0.0000000
+            408                2           0         0.0000000
+            410                1           1         1.0000000
+            412                1           1         1.0000000
+            415                1           0         0.0000000
+            416                1           1         1.0000000
+            419                1           0         0.0000000
+            421                1           1         1.0000000
+            422                3           2         0.6666667
+            427                2           1         0.5000000
+            428                3           2         0.6666667
+            429                1           0         0.0000000
+            431                1           1         1.0000000
+            432                1           1         1.0000000
+            433                1           0         0.0000000
+            437                2           1         0.5000000
+            442                2           1         0.5000000
+            446                1           1         1.0000000
+            449                2           1         0.5000000
+            452                1           0         0.0000000
+            455                2           0         0.0000000
+            458                1           0         0.0000000
+            461                1           0         0.0000000
+            464                1           0         0.0000000
+            466                1           1         1.0000000
+            467                1           1         1.0000000
+            470                1           0         0.0000000
+            475                1           0         0.0000000
+            477                1           1         1.0000000
+            481                1           0         0.0000000
+            483                1           1         1.0000000
+            485                1           1         1.0000000
+            496                1           0         0.0000000
+            500                1           0         0.0000000
+            505                1           0         0.0000000
+            508                1           0         0.0000000
+            509                1           0         0.0000000
+            522                1           1         1.0000000
+            524                1           0         0.0000000
+            535                1           1         1.0000000
+            541                1           1         1.0000000
+            547                1           1         1.0000000
+            550                1           0         0.0000000
+            553                1           0         0.0000000
+            565                2           1         0.5000000
+            567                1           1         1.0000000
+            569                1           1         1.0000000
+            571                1           1         1.0000000
+            577                1           1         1.0000000
+            581                1           1         1.0000000
+            582                1           1         1.0000000
+            587                1           1         1.0000000
+            589                1           1         1.0000000
+            590                1           1         1.0000000
+            601                1           0         0.0000000
+            612                1           1         1.0000000
+            617                1           1         1.0000000
+            635                1           0         0.0000000
+        </pre>
+      </div>
+  
+      <!-- BOTONES -->
+      <button onclick="mostrarTodo3()" class="sql-btn">Ver todas</button>
+      <button onclick="mostrarMenos3()" class="sql-btn" style="display:none;" id="btn_menos_3">Ver menos</button>
+    </div>
+</section>
+
+<!-- ===================================================== -->
+<!--                2.2 LECTURA Y ENTENDIMIENTO           -->
+<!-- ===================================================== -->
+
+<section class="card ">
+  <h3>Lectura y Entendimiento de los Datos</h3>
+
+  <h4>Lectura del dataset en R</h4>
+
+<div class="source"><pre class="knitr r"><span class="hl kwd">install.packages</span><span class="hl def">(</span><span class="hl sng">&quot;readr&quot;</span><span class="hl def">)</span>
+<span class="hl kwd">library</span><span class="hl def">(readr)</span>
+<span class="hl def">clientes</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read_csv</span><span class="hl def">(</span><span class="hl sng">&quot;Model_creditoPersonal.csv&quot;</span><span class="hl def">)</span>
+<span class="hl kwd">cat</span><span class="hl def">(</span><span class="hl sng">&quot;&lt;pre&gt;\n&quot;</span><span class="hl def">,</span> <span class="hl kwd">pretty_sql_table</span><span class="hl def">(</span><span class="hl kwd">head</span><span class="hl def">(clientes)),</span> <span class="hl sng">&quot;\n&lt;/pre&gt;&quot;</span><span class="hl def">)</span>
+</pre></div>
+
+  
+  <div class="table-container">
+<pre>
+ 
+
+ ID   Age   Experience   Income   ZIP.Code   Family   CCAvg   Education   Mortgage  Personal.Loan   Securities.Account   CD.Account   Online   CreditCard 
+---  ----  -----------  -------  ---------  -------  ------  ----------  ---------  --------------  -------------------  -----------  -------  -----------
+  1    25            1       49      91107        4     1.6           1          0  NO              SÍ                   NO           NO       NO         
+  2    45           19       34      90089        3     1.5           1          0  NO              SÍ                   NO           NO       NO         
+  3    39           15       11      94720        1     1.0           1          0  NO              NO                   NO           NO       NO         
+  4    35            9      100      94112        1     2.7           2          0  NO              NO                   NO           NO       NO         
+  5    35            8       45      91330        4     1.0           2          0  NO              NO                   NO           NO       SÍ         
+  6    37           13       29      92121        4     0.4           2        155  NO              NO                   NO           SÍ       NO          
+</pre>
+  </div>
+
+
+  <h4>Descripción de variables principales</h4>
+
+  <ul>
+    <li><strong>Age:</strong> Edad del cliente.</li>
+    <li><strong>Income:</strong> Ingreso anual del cliente (miles USD).</li>
+    <li><strong>Experience:</strong> Años de experiencia laboral.</li>
+    <li><strong>CCAvg:</strong> Gasto promedio mensual con tarjeta de crédito.</li>
+    <li><strong>Education:</strong> Nivel escolar (1: No graduado, 2: Graduado, 3: Profesional).</li>
+    <li><strong>Mortgage:</strong> Valor hipotecario (miles USD).</li>
+    <li><strong>Personal Loan:</strong> Variable objetivo (0 = No, 1 = Sí).</li>
+    <li><strong>Online:</strong> Uso de banca digital.</li>
+    <li><strong>CreditCard:</strong> Posee tarjeta emitida por otro banco.</li>
+  </ul>
+
+  <h4>Sobre la fuente de datos</h4>
+  <p>El dataset proviene de una campaña real donde se ofreció un préstamo personal a 5,000 clientes del banco. 
+  Contiene tanto datos demográficos como financieros, así como la respuesta final del cliente.</p>
+</section>
+
+</div>
+    </section>
+
+    <section id="seccion3" class="section">
+
+<header class="section-header">
+  <p class="section-kicker">Fase 3</p>
+  <h2>Análisis Exploratorio de Datos (EDA)</h2>
+  <p class="section-subtitle">
+    En esta fase analizamos el comportamiento de las variables, detectamos patrones relevantes 
+    y revisamos la calidad de los datos para preparar el terreno de modelado.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!--                   3.1 ANÁLISIS UNIVARIADO             -->
+<!-- ===================================================== -->
+
+<section class="card">
+  <h3>Análisis Univariado</h3>
+  <p>
+    El objetivo del análisis univariado es comprender la distribución de variables clave como 
+    <strong>edad</strong>, <strong>ingresos</strong>, <strong>gasto promedio con tarjeta</strong>, 
+    y la variable objetivo <strong>aceptó préstamo</strong>. Esto permite entender el perfil general 
+    del cliente promedio y detectar valores atípicos.
+  </p>
+
+  <h4>Distribución de la Edad</h4>
+
+  <!-- Código mostrado -->
+<div class="source"><pre class="knitr r"><span class="hl kwd">hist</span><span class="hl def">(clientes</span><span class="hl opt">$</span><span class="hl def">Age,</span>
+   <span class="hl kwc">main</span><span class="hl def">=</span><span class="hl sng">&quot;Distribución de Edad&quot;</span><span class="hl def">,</span>
+   <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Edad&quot;</span><span class="hl def">,</span>
+   <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl sng">&quot;#e6fff5&quot;</span><span class="hl def">,</span>
+   <span class="hl kwc">border</span><span class="hl def">=</span><span class="hl sng">&quot;#00994d&quot;</span><span class="hl def">)</span>
+</pre></div>
+
+
+  <!-- Resultado -->
+  <div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-30-1.png" alt="plot of chunk unnamed-chunk-30" class="plot" /></div><div class="rcode">
+
+  </div>
+
+
+  <h4>Ingresos Anuales</h4>
+
+  <!-- Código -->
+<div class="source"><pre class="knitr r"><span class="hl kwd">hist</span><span class="hl def">(clientes</span><span class="hl opt">$</span><span class="hl def">Income,</span>
+   <span class="hl kwc">main</span><span class="hl def">=</span><span class="hl sng">&quot;Distribución de Ingresos&quot;</span><span class="hl def">,</span>
+   <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Ingresos (miles USD)&quot;</span><span class="hl def">,</span>
+   <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl sng">&quot;#e6fff5&quot;</span><span class="hl def">,</span>
+   <span class="hl kwc">border</span><span class="hl def">=</span><span class="hl sng">&quot;#00994d&quot;</span><span class="hl def">)</span>
+</pre></div>
+
+
+  <!-- Resultado -->
+  <div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-32-1.png" alt="plot of chunk unnamed-chunk-32" class="plot" /></div><div class="rcode">
+
+  </div>
+
+  <h4>Variable objetivo: Aceptación del Préstamo</h4>
+
+  <!-- Código -->
+<div class="source"><pre class="knitr r"><span class="hl def">tabla_objetivo</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">table</span><span class="hl def">(clientes</span><span class="hl opt">$</span><span class="hl def">Personal.Loan)</span>
+<span class="hl kwd">cat</span><span class="hl def">(</span><span class="hl sng">&quot;&lt;pre&gt;\n&quot;</span><span class="hl def">,</span> <span class="hl kwd">pretty_sql_table</span><span class="hl def">(tabla_objetivo),</span> <span class="hl sng">&quot;\n&lt;/pre&gt;&quot;</span><span class="hl def">)</span>
+</pre></div>
+
+
+  <!-- Resultado -->
+  <div>
+<pre>
+ 
+
+   X0    X1
+-----  ----
+ 4520   480 
+</pre>
+  </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!--               3.2 ANÁLISIS BIVARIADO                 -->
+<!-- ===================================================== -->
+
+<section class="card">
+  <h3>Análisis Bivariado</h3>
+  <p>
+    En esta etapa analizamos relaciones entre variables, especialmente aquellas que pueden 
+    influir en la aceptación del préstamo. Este análisis ayuda a anticipar qué variables 
+    son candidatas para el modelo predictivo.
+  </p>
+
+  <h4>Ingresos vs. Aceptación del Préstamo</h4>
+
+  <!-- Código -->
+<div class="source"><pre class="knitr r"><span class="hl kwd">boxplot</span><span class="hl def">(Income</span> <span class="hl opt">~</span> <span class="hl def">Personal.Loan,</span>
+      <span class="hl kwc">data</span> <span class="hl def">= clientes,</span>
+      <span class="hl kwc">main</span><span class="hl def">=</span><span class="hl sng">&quot;Ingresos según aceptación&quot;</span><span class="hl def">,</span>
+      <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Aceptó Préstamo&quot;</span><span class="hl def">,</span>
+      <span class="hl kwc">ylab</span><span class="hl def">=</span><span class="hl sng">&quot;Ingresos&quot;</span><span class="hl def">,</span>
+      <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl kwd">c</span><span class="hl def">(</span><span class="hl sng">&quot;#e6fff5&quot;</span><span class="hl def">,</span> <span class="hl sng">&quot;#00994d&quot;</span><span class="hl def">))</span>
+</pre></div>
+
+
+  <!-- Resultado -->
+  <div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-36-1.png" alt="plot of chunk unnamed-chunk-36" class="plot" /></div><div class="rcode">
+
+  </div>
+
+
+  <h4>Gasto con Tarjeta (CCAvg) vs Aceptación</h4>
+
+  <!-- Código -->
+<div class="source"><pre class="knitr r"><span class="hl kwd">boxplot</span><span class="hl def">(CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Personal.Loan,</span>
+      <span class="hl kwc">data</span> <span class="hl def">= clientes,</span>
+      <span class="hl kwc">main</span><span class="hl def">=</span><span class="hl sng">&quot;Gasto en tarjeta vs aceptación&quot;</span><span class="hl def">,</span>
+      <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Aceptó Préstamo&quot;</span><span class="hl def">,</span>
+      <span class="hl kwc">ylab</span><span class="hl def">=</span><span class="hl sng">&quot;Gasto (miles USD)&quot;</span><span class="hl def">,</span>
+      <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl kwd">c</span><span class="hl def">(</span><span class="hl sng">&quot;#e6fff5&quot;</span><span class="hl def">,</span> <span class="hl sng">&quot;#00994d&quot;</span><span class="hl def">))</span>
+</pre></div>
+
+
+  <!-- Resultado -->
+  <div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-38-1.png" alt="plot of chunk unnamed-chunk-38" class="plot" /></div><div class="rcode">
+
+  </div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!--               3.3 PROBLEMAS EN LOS DATOS             -->
+<!-- ===================================================== -->
+
+<section class="card ">
+  <h3>Problemas detectados en los datos</h3>
+
+  <ul>
+    <li><strong>Desbalance de clases:</strong> sólo el 9.6% aceptó el préstamo → afecta modelos tradicionales.</li>
+    <li><strong>Valores negativos en experiencia laboral:</strong> algunos registros tienen experiencia &lt; 0.</li>
+    <li><strong>Sesgos en altos ingresos:</strong> ingresos muy altos generan colas en la distribución.</li>
+    <li><strong>Correlación fuerte entre ingresos y CCAvg:</strong> podrían generar multicolinealidad.</li>
+    <li><strong>Posible información redundante:</strong> ZIP Code no contribuye al análisis predictivo.</li>
+  </ul>
+</section>
+
+
+<!-- ===================================================== -->
+<!--               3.4 ¿QUÉ NOS DICEN LOS DATOS?          -->
+<!-- ===================================================== -->
+
+<section class="card" style="border-left: 4px solid #00994d;">
+  <h3>¿Qué nos dicen los datos?</h3>
+
+  <p>El análisis exploratorio revela varios patrones importantes:</p>
+
+  <ul>
+    <li><strong>Los clientes que aceptan el préstamo tienen ingresos más altos</strong> y mayor gasto con tarjeta.</li>
+    <li><strong>Usar banca online correlaciona positivamente</strong> con aceptar productos nuevos.</li>
+    <li>Los clientes con mayor educación tienden a tener mayor probabilidad de aceptación.</li>
+    <li>La experiencia laboral tiene estructura razonable, pero incluye valores anómalos (&lt; 0).</li>
+    <li><strong>La variable objetivo está muy desbalanceada</strong>, lo que afectará al entrenamiento de modelos.</li>
+  </ul>
+
+  <p>
+    En conjunto, los datos sugieren que el perfil de un cliente que acepta el préstamo incluye:
+    <strong>ingresos medios/altos, gasto regular en tarjeta, buen uso de banca digital y nivel educativo medio-alto</strong>.
+  </p>
+
+</section>
+
+</div>
+    </section>
+
+    <section id="seccion4" class="section">
+
+<h2>Análisis de Regresión</h2>
+<p class="section-tag-alert">Próximamente</p>
+    </section>
+
+    <section id="seccion5" class="section">
+
+<h2>Análisis de Regresión Logística</h2>
+<p class="section-tag-alert">Próximamente</p>
+    </section>
+
+    <section id="seccion6" class="section">
+
+<h2>Analisis de Conglomerados</h2>
+<p class="section-tag-alert">Próximamente</p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" class="footer">
+    <p>&copy; Universidad Alfonso X El Sabio 2025 · Propensión a Préstamo Personal · Celeste Javiera Sánchez Guillén </p>
+  </footer>
+
+  <!-- JS PARA SCROLL + SCROLLSPY -->
+  <script src="script.js"></script>
+</body>
+</html>

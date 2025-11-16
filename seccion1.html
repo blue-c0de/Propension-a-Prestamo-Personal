@@ -1,0 +1,249 @@
+<div class="section-block">
+
+  <!-- TITULAR PRINCIPAL -->
+  <header class="section-header">
+    <p class="section-kicker">Fase 1</p>
+    <h2>Definir el proyecto y el conjunto de datos</h2>
+    <p class="section-subtitle">
+      De una campaña masiva de préstamos personales a una estrategia inteligente basada en datos.
+    </p>
+  </header>
+
+  <!-- PROBLEMA DE NEGOCIO -->
+  <section class="card">
+    <h3>Introducción – El Problema de Negocio</h3>
+    <h4>¿Qué decisión quiere tomar el banco?</h4>
+    <p>
+      Una entidad bancaria desea aumentar la conversión de su campaña de préstamos personales. 
+      Para ello, construiremos todo el flujo de valor: exploraremos los datos, identificaremos las 
+      variables que más influyen en la decisión de compra, prepararemos la información y entrenaremos 
+      modelos de <strong>Machine Learning</strong> (como regresión logística y árboles de decisión) para responder 
+      a una pregunta de negocio muy sencilla pero de enorme impacto:
+    </p>
+
+    <blockquote class="quote-business">
+      <em>“Dado el perfil y la relación actual de un cliente con el banco, ¿comprará o no un crédito personal si se lo ofrecemos?”</em>
+    </blockquote>
+
+    <p>
+      La decisión de negocio consiste en <strong>a quién dirigir la campaña (segmentación)</strong> y con qué 
+      <strong>intensidad (priorización)</strong>, maximizando el retorno (ROI) y minimizando el contacto a clientes con 
+      baja propensión.
+    </p>
+  </section>
+
+  <!-- PREGUNTAS DE NEGOCIO -->
+  <section class="card">
+    <h3>Preguntas clave de negocio</h3>
+    <p>El proyecto de ciencia de datos buscará responder, entre otras, a estas preguntas:</p>
+    <ol class="business-questions">
+      <li><strong>Probabilidad de aceptación:</strong> ¿Cuál es la probabilidad de que un cliente acepte un préstamo personal?</li>
+      <li><strong>Drivers de la conversión:</strong> ¿Qué variables explican mejor la aceptación (por ejemplo, ingresos, uso de tarjeta, educación)?</li>
+      <li><strong>Umbral operativo:</strong> ¿Cómo fijar un <em>cut-off</em> para priorizar la campaña y estimar el ROI esperado?</li>
+    </ol>
+  </section>
+
+  <!-- OBJETIVOS -->
+  <section class="card card-split">
+    <div class="card-column">
+      <h3>Objetivo general</h3>
+      <p class="section-tag">Visión global</p>
+      <ul>
+        <li>Desarrollar un sistema de análisis y predicción de propensión para préstamos personales.</li>
+      </ul>
+    </div>
+
+    <div class="card-column">
+      <h3>Objetivos específicos</h3>
+      <p class="section-tag">Acciones concretas</p>
+      <ul>
+        <li>Realizar un análisis exploratorio y de calidad de datos.</li>
+        <li>Entrenar y evaluar modelos (regresión logística y árboles de decisión / gradient boosting).</li>
+        <li>Definir métricas específicas para evaluar la calidad del modelo de clasificación (ROC-AUC, Precision@K, Lift, curva de ganancias).</li>
+        <li>Diseñar un informe empresarial con resultados o un dashboard ejecutivo para soporte a decisión.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FUENTES DE DATOS -->
+  <section class="card">
+    <h3>Fuentes de datos</h3>
+    <h4>Descripción del dataset</h4>
+    <p>
+      A partir de los registros internos del banco se construye una muestra de <strong>5.000 clientes reales</strong> 
+      (debidamente anonimizados), recopilando para cada uno información clave de negocio:
+    </p>
+
+    <div class="data-grid">
+      <div class="data-item">
+        <h5>Perfil del cliente</h5>
+        <p>Edad, ingresos, años de experiencia laboral, nivel educativo, estado civil, etc.</p>
+      </div>
+      <div class="data-item">
+        <h5>Relación con el banco</h5>
+        <p>Presencia de hipoteca, uso de banca online, seguros, tarjetas, saldos medios, productos contratados.</p>
+      </div>
+      <div class="data-item">
+        <h5>Respuesta a la campaña</h5>
+        <p>Variable objetivo: si aceptó o no el crédito personal ofrecido en la última campaña.</p>
+      </div>
+    </div>
+
+    <p>
+      No se trata de una base teórica, sino del <strong>histórico de una campaña real</strong>: de esos 5.000 clientes, 
+      solo 480 (un 9,6 %) dijeron “sí” al préstamo. Ese comportamiento pasado es el que se aprovechará 
+      para anticipar resultados futuros.
+    </p>
+
+    <p>
+      Con esta información, el banco plantea un reto muy concreto: 
+      <strong>ser capaz de predecir, antes de lanzar la campaña, qué clientes tienen alta probabilidad de aceptar un crédito personal</strong>. 
+      Así, marketing puede invertir el presupuesto donde realmente tiene retorno:
+    </p>
+
+    <ul class="bullets-inline">
+      <li>Segmentando mejor a quién se contacta.</li>
+      <li>Personalizando mensajes según el perfil.</li>
+      <li>Reduciendo el coste por conversión de cada nuevo préstamo concedido.</li>
+    </ul>
+
+    <p class="note">
+      Esta es la historia que hay detrás de la data: una campaña real, un presupuesto limitado y una decisión clave 
+      para el banco: usar la analítica avanzada para hablar <strong>con las personas adecuadas, en el momento adecuado y con la oferta adecuada</strong>.
+    </p>
+  </section>
+
+  <!-- PLAN DE TRABAJO -->
+  <section class="card card-center">
+    <h3>Plan de Trabajo</h3>
+    <p>El proyecto seguirá una estructura por fases, desde el entendimiento del problema hasta la evaluación del modelo en negocio.</p>
+    <img src="figure/plan.png" alt="Plan de trabajo del proyecto" style="max-width: 700px; width: 100%; border-radius: 8px;"/>
+  </section>
+
+  <!-- METODOLOGÍA -->
+  <section class="card card-split">
+    <div class="card-column">
+      <h3>Metodología</h3>
+      <h4>¿Cómo se hará el análisis inicial de los datos?</h4>
+      <p>
+        El análisis inicial se enfocará en comprender la estructura de la base de clientes del banco y 
+        en identificar patrones tempranos relacionados con la aceptación del préstamo personal. 
+        En una primera fase, se realizará un <strong>Análisis Exploratorio de Datos (EDA)</strong> con doble enfoque:
+      </p>
+      
+      <ul>
+        <li>
+          <strong>Análisis descriptivo del cliente:</strong> distribución de edad, ingresos, experiencia laboral, 
+          nivel educativo y otros atributos demográficos para entender la composición de la cartera.
+        </li>
+        <li>
+          <strong>Análisis del comportamiento financiero:</strong> productos contratados, uso de banca online, 
+          presencia de hipotecas, saldos medios y otras variables que caracterizan la relación del cliente con el banco.
+        </li>
+      </ul>
+      
+      <p>
+        Posteriormente, se investigarán las diferencias entre los clientes que 
+        <strong>aceptaron el préstamo</strong> y los que <strong>no lo aceptaron</strong>, identificando señales tempranas 
+        que indiquen propensión. Se analizarán correlaciones, importancia preliminar de variables, presencia 
+        de valores atípicos y consistencia de la información.
+      </p>
+    </div>
+
+    <div class="card-column">
+      <h4>¿Qué técnicas se usarán?</h4>
+      <p>
+        Dado que la variable objetivo del proyecto —aceptar o no el crédito personal— es 
+        <strong>dicotómica (binaria)</strong>, el proyecto empleará principalmente 
+        <strong>modelos de clasificación supervisada</strong>.</p>
+      <p>
+        En primera instancia, se considerarán modelos lineales, modelos de árboles y métodos de boosting, 
+        complementados con la selección del umbral óptimo mediante curvas Precision–Recall 
+        y maximización del beneficio esperado. Este enfoque permite tanto interpretar el comportamiento 
+        del cliente como obtener un modelo altamente predictivo para priorizar adecuadamente la campaña.
+      </p>
+
+      
+      <h3>Entregables del proyecto</h3>
+      <ul>
+        <li><strong>Documento PDF</strong> con el análisis, resultados y conclusiones de negocio.</li>
+        <li><strong>Notebook (R/Python)</strong> con el código utilizado para el análisis y modelado.</li>
+        <li><strong>Dashboard o resumen ejecutivo</strong> con indicadores clave para el área de marketing y dirección.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TECNOLOGÍA -->
+  <section class="card">
+  <h3>Tecnología y herramientas</h3>
+
+  <div class="tech-grid">
+
+    <!-- Gestión de datos -->
+    <div class="tech-item">
+      <h4>Gestión de datos</h4>
+      <p>Archivos CSV locales y bases de datos SQL.</p>
+    </div>
+
+    <!-- Lenguajes -->
+    <div class="tech-item">
+      <h4>Lenguajes y librerías</h4>
+
+      <div class="tech-icons">
+
+        <!-- R -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/r/r-original.svg" alt="R" />
+          <span>R</span>
+        </div>
+
+        <!-- Python -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="Python" />
+          <span>Python</span>
+        </div>
+
+        <!-- HTML -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" alt="HTML" />
+          <span>HTML</span>
+        </div>
+
+        <!-- CSS -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" alt="CSS" />
+          <span>CSS</span>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="tech-icon">
+          <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="JavaScript" />
+          <span>JavaScript</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- IDE -->
+    <div class="tech-item">
+      <h4>Plataforma de desarrollo</h4>
+      <p>RStudio como entorno principal de trabajo.</p>
+    </div>
+
+    <!-- Git -->
+    <div class="tech-item">
+      <h4>Control de versiones</h4>
+      <p>Git y GitHub.</p>
+    </div>
+
+    <!-- Referencias -->
+    <div class="tech-item tech-wide">
+      <h4>Referencias</h4>
+      <p>
+        Kaggle · Metodología <em>CRISP-DM</em> · Documentación oficial de librerías de Machine Learning.
+      </p>
+    </div>
+
+  </div>
+</section>
+</div>

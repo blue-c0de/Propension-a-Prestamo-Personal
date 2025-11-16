@@ -1,0 +1,294 @@
+<!-- ========================= -->
+<!--   SETUP BASE DE DATOS    -->
+<!--   (se ejecuta una vez)   -->
+<!-- ========================= -->
+
+<!--begin.rcode bd_setup, include=FALSE
+library(DBI)
+library(RSQLite)
+library(knitr)
+
+# Conectar o crear la BD SQLite
+con <- dbConnect(RSQLite::SQLite(), "proyecto_prestamos.sqlite")
+
+# Leer el CSV con nombres seguros
+datos <- read.csv("Model_creditoPersonal.csv", check.names = TRUE)
+
+# Helper para encontrar columnas aunque tengan nombres raros
+find_col <- function(posibles) {
+  nm <- names(datos)
+  idx <- which(tolower(nm) %in% tolower(posibles))
+  if (length(idx) > 0) nm[idx[1]] else NA
+}
+
+# Mapeo de columnas → nombres consistentes
+datos_sql <- data.frame(
+  id_cliente        = datos[[find_col(c("ID","Id","id_cliente"))]],
+  edad              = datos[[find_col(c("Age","edad"))]],
+  experiencia       = datos[[find_col(c("Experience","experiencia"))]],
+  ingresos          = datos[[find_col(c("Income","ingresos"))]],
+  codigo_postal     = datos[[find_col(c("ZIP.Code","ZIP_Code","ZIP Code","zip"))]],
+  familia           = datos[[find_col(c("Family","familia"))]],
+  saldo_promedio    = datos[[find_col(c("CCAvg","saldo_promedio"))]],
+  educacion         = datos[[find_col(c("Education","educacion"))]],
+  hipotecario       = datos[[find_col(c("Mortgage","hipoteca","hipotecario"))]],
+  acepto_prestamo   = datos[[find_col(c("Personal.Loan","PersonalLoan","Personal Loan","loan"))]],
+  cuenta_valores    = datos[[find_col(c("Securities.Account","Securities Account"))]],
+  cuenta_plazo_fijo = datos[[find_col(c("CD.Account","CD Account"))]],
+  uso_banca_online  = datos[[find_col(c("Online","online"))]],
+  tarjeta_credito   = datos[[find_col(c("CreditCard","Credit.Card","Credit card"))]]
+)
+
+# Sobrescribir tabla SIEMPRE
+dbWriteTable(con, "clientes_prestamo", datos_sql, overwrite = TRUE)
+
+# Función: tabla bonita tipo SQL
+pretty_sql_table <- function(df) {
+  df_local <- df
+
+  # Convertir columnas 0/1 → NO/SÍ
+  df_local[] <- lapply(df_local, function(col) {
+    if (is.numeric(col) && all(na.omit(unique(col)) %in% c(0,1))) {
+      ifelse(col == 1, "SÍ", "NO")
+    } else {
+      col
+    }
+  })
+
+  # Encoding correcto
+  df_local <- data.frame(lapply(df_local, function(col) {
+    if (is.character(col)) enc2utf8(col) else col
+  }), stringsAsFactors = FALSE)
+
+  # Capturar tabla estilo SQL
+  txt <- capture.output(kable(df_local, format="simple"))
+  paste(txt, collapse="\n")
+}
+
+options(width=100)
+end.rcode-->
+
+
+<!-- TITULAR PRINCIPAL -->
+<header class="section-header">
+  <p class="section-kicker">Fase 2</p>
+  <h2>Organización y Entendimiento de Datos</h2>
+  <p class="section-subtitle">
+    Para garantizar una correcta gestión y organización de la información del proyecto, se creó una 
+    base de datos relacional en SQLite. 
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!--                      2.1 BASES DE DATOS               -->
+<!-- ===================================================== -->
+
+<section class="card">
+  <h3>Trabajo con Bases de Datos</h3>
+  <div class="tech-grid">
+      <div class="data-item">
+          <h4>Creación de la tabla</h4>
+          <pre><code>CREATE TABLE clientes_prestamo (
+            id_cliente INT PRIMARY KEY,
+            edad INT,
+            experiencia INT,
+            ingresos INT,
+            codigo_postal INT,
+            familia INT,
+            saldo_promedio FLOAT,
+            educacion INT,
+            hipotecario INT,
+            acepto_prestamo INT,
+            cuenta_valores INT,
+            cuenta_plazo_fijo INT,
+            uso_banca_online INT,
+            tarjeta_credito INT
+        );</code></pre>
+
+<!-- ===================================================== -->
+<!--                CONSULTA 2                             -->
+<!-- ===================================================== -->
+
+        <h4>2) Ingresos promedio según aceptación</h4>
+      
+        <pre><code>SELECT acepto_prestamo,
+             AVG(ingresos) AS ingresos_promedio
+      FROM clientes_prestamo
+      GROUP BY acepto_prestamo;</code></pre>
+      
+        <div class="terminal">
+        <!--begin.rcode echo=FALSE
+      sql_2 <- "
+        SELECT acepto_prestamo,
+               AVG(ingresos) AS ingresos_promedio
+        FROM clientes_prestamo
+        GROUP BY acepto_prestamo;
+      "
+      res_2 <- dbGetQuery(con, sql_2)
+      colnames(res_2) <- c("Aceptó Préstamo", "Ingreso Promedio (miles USD)")
+      
+      cat("<pre>\n", pretty_sql_table(res_2), "\n</pre>")
+      end.rcode-->
+        </div>  
+      </div>
+      <div class="data-item">
+<!-- ===================================================== -->
+<!--                CONSULTA 1                             -->
+<!-- ===================================================== -->
+        <h4>1) Distribución de aceptación del préstamo</h4>
+
+        <pre><code>SELECT acepto_prestamo, COUNT(*) AS total_clientes
+      FROM clientes_prestamo
+      GROUP BY acepto_prestamo;</code></pre>
+      
+        <div class="terminal">
+        <!--begin.rcode echo=FALSE
+      sql_1 <- "
+        SELECT acepto_prestamo, COUNT(*) AS total_clientes
+        FROM clientes_prestamo
+        GROUP BY acepto_prestamo;
+      "
+      res_1 <- dbGetQuery(con, sql_1)
+      colnames(res_1) <- c("Aceptó Préstamo", "Total Clientes")
+      
+      cat("<pre>\n", pretty_sql_table(res_1), "\n</pre>")
+      end.rcode-->
+        </div>
+
+<!-- ===================================================== -->
+<!--                CONSULTA 3                             -->
+<!-- ===================================================== -->
+        <h4>3) Uso de banca online y aceptación del préstamo</h4>
+      
+        <pre><code>SELECT uso_banca_online,
+             COUNT(*) AS total_clientes,
+             SUM(acepto_prestamo) AS aceptaron,
+             SUM(acepto_prestamo)*1.0/COUNT(*) AS tasa_aceptacion
+      FROM clientes_prestamo
+      GROUP BY uso_banca_online;</code></pre>
+      
+        <div class="terminal">
+        <!--begin.rcode echo=FALSE
+      sql_4 <- "
+        SELECT uso_banca_online,
+               COUNT(*) AS total_clientes,
+               SUM(acepto_prestamo) AS aceptaron,
+               SUM(acepto_prestamo)*1.0/COUNT(*) AS tasa_aceptacion
+        FROM clientes_prestamo
+        GROUP BY uso_banca_online;
+      "
+      res_4 <- dbGetQuery(con, sql_4)
+      
+      colnames(res_4) <- c("Usa Banca Online", "Total Clientes", "Aceptaron", "Tasa Aceptación")
+      
+      cat("<pre>\n", pretty_sql_table(res_4), "\n</pre>")
+      end.rcode-->
+        </div>
+      </div>
+    </div>
+    
+    
+<!-- ===================================================== -->
+<!--                CONSULTA 4                             -->
+<!-- ===================================================== -->
+    <h4>4) Hipoteca y probabilidad de aceptar el préstamo</h4>
+  
+    <pre><code>SELECT hipotecario,
+         COUNT(*) AS total_clientes,
+         SUM(acepto_prestamo) AS aceptaron,
+         SUM(acepto_prestamo)*1.0/COUNT(*) AS tasa_aceptacion
+  FROM clientes_prestamo
+  GROUP BY hipotecario;</code></pre>
+  
+    <div class="terminal">
+  
+    <!--begin.rcode echo=FALSE, message=FALSE, warning=FALSE
+  sql_3 <- "
+    SELECT hipotecario,
+           COUNT(*) AS total_clientes,
+           SUM(acepto_prestamo) AS aceptaron,
+           SUM(acepto_prestamo)*1.0/COUNT(*) AS tasa_aceptacion
+    FROM clientes_prestamo
+    GROUP BY hipotecario;
+  "
+  res_3 <- dbGetQuery(con, sql_3)
+  
+  colnames(res_3) <- c("Tiene Hipoteca", "Total Clientes", "Aceptaron", "Tasa Aceptación")
+  
+  # Primera tabla → primeras 10 filas
+  tabla_10 <- pretty_sql_table(res_3[1:10, ])
+  
+  # Tabla completa
+  tabla_full <- pretty_sql_table(res_3)
+  end.rcode-->
+  
+      <!-- TABLA 10 FILAS -->
+      <div id="tabla3_10">
+        <pre>
+  <!--begin.rcode echo=FALSE
+  cat(tabla_10)
+  end.rcode-->
+        </pre>
+      </div>
+  
+      <!-- TABLA COMPLETA OCULTA -->
+      <div id="tabla3_full" style="display:none;">
+        <pre>
+  <!--begin.rcode echo=FALSE
+  cat(tabla_full)
+  end.rcode-->
+        </pre>
+      </div>
+  
+      <!-- BOTONES -->
+      <button onclick="mostrarTodo3()" class="sql-btn">Ver todas</button>
+      <button onclick="mostrarMenos3()" class="sql-btn" style="display:none;" id="btn_menos_3">Ver menos</button>
+    </div>
+</section>
+
+<!-- ===================================================== -->
+<!--                2.2 LECTURA Y ENTENDIMIENTO           -->
+<!-- ===================================================== -->
+
+<section class="card ">
+  <h3>Lectura y Entendimiento de los Datos</h3>
+
+  <h4>Lectura del dataset en R</h4>
+
+  <!--begin.rcode echo=TRUE, eval=FALSE
+  install.packages("readr")
+  library(readr)
+  clientes <- read_csv("Model_creditoPersonal.csv")
+  cat("<pre>\n", pretty_sql_table(head(clientes)), "\n</pre>")
+  end.rcode-->
+  
+  <div class="table-container">
+  <!--begin.rcode echo=FALSE
+  clientes <- read.csv("Model_creditoPersonal.csv")
+  cat("<pre>\n", pretty_sql_table(head(clientes)), "\n</pre>")
+  end.rcode-->
+  </div>
+
+
+  <h4>Descripción de variables principales</h4>
+
+  <ul>
+    <li><strong>Age:</strong> Edad del cliente.</li>
+    <li><strong>Income:</strong> Ingreso anual del cliente (miles USD).</li>
+    <li><strong>Experience:</strong> Años de experiencia laboral.</li>
+    <li><strong>CCAvg:</strong> Gasto promedio mensual con tarjeta de crédito.</li>
+    <li><strong>Education:</strong> Nivel escolar (1: No graduado, 2: Graduado, 3: Profesional).</li>
+    <li><strong>Mortgage:</strong> Valor hipotecario (miles USD).</li>
+    <li><strong>Personal Loan:</strong> Variable objetivo (0 = No, 1 = Sí).</li>
+    <li><strong>Online:</strong> Uso de banca digital.</li>
+    <li><strong>CreditCard:</strong> Posee tarjeta emitida por otro banco.</li>
+  </ul>
+
+  <h4>Sobre la fuente de datos</h4>
+  <p>El dataset proviene de una campaña real donde se ofreció un préstamo personal a 5,000 clientes del banco. 
+  Contiene tanto datos demográficos como financieros, así como la respuesta final del cliente.</p>
+</section>
+
+</div>
