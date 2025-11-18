@@ -260,13 +260,13 @@ end.rcode-->
   <!--begin.rcode echo=TRUE, eval=FALSE
   install.packages("readr")
   library(readr)
-  clientes <- read_csv("Model_creditoPersonal.csv")
+  clientes <- read_csv("../data/raw/Model_creditoPersonal.csv")
   cat("<pre>\n", pretty_sql_table(head(clientes)), "\n</pre>")
   end.rcode-->
   
   <div class="table-container">
   <!--begin.rcode echo=FALSE
-  clientes <- read.csv("Model_creditoPersonal.csv")
+  clientes <- read.csv("../data/raw/Model_creditoPersonal.csv")
   cat("<pre>\n", pretty_sql_table(head(clientes)), "\n</pre>")
   end.rcode-->
   </div>
