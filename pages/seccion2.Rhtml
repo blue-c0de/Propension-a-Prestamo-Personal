@@ -9,10 +9,10 @@ library(RSQLite)
 library(knitr)
 
 # Conectar o crear la BD SQLite
-con <- dbConnect(RSQLite::SQLite(), "proyecto_prestamos.sqlite")
+con <- dbConnect(RSQLite::SQLite(), "../data/db/proyecto_prestamos.sqlite")
 
 # Leer el CSV con nombres seguros
-datos <- read.csv("Model_creditoPersonal.csv", check.names = TRUE)
+datos <- read.csv("../data/raw/Model_creditoPersonal.csv", check.names = TRUE)
 
 # Helper para encontrar columnas aunque tengan nombres raros
 find_col <- function(posibles) {

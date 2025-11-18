@@ -64,7 +64,7 @@
 </style>
   <meta charset="UTF-8">
   <title>Propensión a Prestamo Personal</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="index.css">
   <link rel="shortcut icon" href="figure/favicon.ico" type="image/x-icon">
   <link rel="icon" href="figure/favicon.ico" type="image/x-icon">
 </head>
@@ -901,18 +901,14 @@ SÍ                            2984         291         0.0975201
 
   
   <div class="table-container">
-<pre>
- 
+<div class="warning"><pre class="knitr r">## Warning in file(file, "rt"): no fue posible abrir el archivo 'Model_creditoPersonal.csv': No such
+## file or directory
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in file(file, "rt"): no se puede abrir la conexión
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
 
- ID   Age   Experience   Income   ZIP.Code   Family   CCAvg   Education   Mortgage  Personal.Loan   Securities.Account   CD.Account   Online   CreditCard 
----  ----  -----------  -------  ---------  -------  ------  ----------  ---------  --------------  -------------------  -----------  -------  -----------
-  1    25            1       49      91107        4     1.6           1          0  NO              SÍ                   NO           NO       NO         
-  2    45           19       34      90089        3     1.5           1          0  NO              SÍ                   NO           NO       NO         
-  3    39           15       11      94720        1     1.0           1          0  NO              NO                   NO           NO       NO         
-  4    35            9      100      94112        1     2.7           2          0  NO              NO                   NO           NO       NO         
-  5    35            8       45      91330        4     1.0           2          0  NO              NO                   NO           NO       SÍ         
-  6    37           13       29      92121        4     0.4           2        155  NO              NO                   NO           SÍ       NO          
-</pre>
   </div>
 
 
@@ -977,7 +973,8 @@ SÍ                            2984         291         0.0975201
 
   <!-- Resultado -->
   <div>
-</div><div class="rimage default"><img src="figure/unnamed-chunk-30-1.png" alt="plot of chunk unnamed-chunk-30" class="plot" /></div><div class="rcode">
+<div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
 
   </div>
 
@@ -995,7 +992,8 @@ SÍ                            2984         291         0.0975201
 
   <!-- Resultado -->
   <div>
-</div><div class="rimage default"><img src="figure/unnamed-chunk-32-1.png" alt="plot of chunk unnamed-chunk-32" class="plot" /></div><div class="rcode">
+<div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
 
   </div>
 
@@ -1009,13 +1007,11 @@ SÍ                            2984         291         0.0975201
 
   <!-- Resultado -->
   <div>
-<pre>
- 
+<div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'tabla_objetivo' no encontrado
+</pre></div>
 
-   X0    X1
------  ----
- 4520   480 
-</pre>
   </div>
 
 </section>
@@ -1047,7 +1043,8 @@ SÍ                            2984         291         0.0975201
 
   <!-- Resultado -->
   <div>
-</div><div class="rimage default"><img src="figure/unnamed-chunk-36-1.png" alt="plot of chunk unnamed-chunk-36" class="plot" /></div><div class="rcode">
+<div class="error"><pre class="knitr r">## Error in eval(m$data, parent.frame()): objeto 'clientes' no encontrado
+</pre></div>
 
   </div>
 
@@ -1066,7 +1063,8 @@ SÍ                            2984         291         0.0975201
 
   <!-- Resultado -->
   <div>
-</div><div class="rimage default"><img src="figure/unnamed-chunk-38-1.png" alt="plot of chunk unnamed-chunk-38" class="plot" /></div><div class="rcode">
+<div class="error"><pre class="knitr r">## Error in eval(m$data, parent.frame()): objeto 'clientes' no encontrado
+</pre></div>
 
   </div>
 
@@ -1142,6 +1140,6 @@ SÍ                            2984         291         0.0975201
   </footer>
 
   <!-- JS PARA SCROLL + SCROLLSPY -->
-  <script src="script.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
