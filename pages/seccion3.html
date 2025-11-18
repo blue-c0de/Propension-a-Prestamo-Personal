@@ -28,13 +28,9 @@
   <h4>Distribución de la Edad</h4>
   <!-- Resultado -->
   <div>
-  <!--begin.rcode echo=FALSE
-hist(clientes$Age, 
-     main="Distribución de Edad",
-     xlab="Edad",
-     col="#e6fff5",
-     border="#00994d")
-end.rcode-->
+<div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
+</div></div>
   </div>
 
   <p>
@@ -72,13 +68,9 @@ end.rcode-->
 
   <!-- Resultado -->
   <div>
-  <!--begin.rcode echo=FALSE
-hist(clientes$Income, 
-     main="Distribución de Ingresos",
-     xlab="Ingresos (miles USD)",
-     col="#e6fff5",
-     border="#00994d")
-end.rcode-->
+<div class="chunk" id="unnamed-chunk-2"><div class="rcode"><div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
+</div></div>
   </div>
 
   <p>
@@ -117,13 +109,9 @@ end.rcode-->
 
   <!-- Resultado -->
   <div>
-  <!--begin.rcode echo=FALSE
-hist(clientes$CCAvg, 
-     main="Distribución del gasto promedio con tarjeta",
-     xlab="Gasto promedio mensual (miles USD)",
-     col="#e6fff5",
-     border="#00994d")
-end.rcode-->
+<div class="chunk" id="unnamed-chunk-3"><div class="rcode"><div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
+</div></div>
   </div>
 
   <p>
@@ -163,10 +151,11 @@ end.rcode-->
 
   <!-- Resultado -->
   <div>
-  <!--begin.rcode echo=FALSE
-tabla_objetivo <- table(clientes$Personal.Loan)
-cat("<pre>\n", pretty_sql_table(tabla_objetivo), "\n</pre>")
-end.rcode-->
+<div class="chunk" id="unnamed-chunk-4"><div class="rcode"><div class="error"><pre class="knitr r">## Error: objeto 'clientes' no encontrado
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in pretty_sql_table(tabla_objetivo): no se pudo encontrar la función "pretty_sql_table"
+</pre></div>
+</div></div>
   </div>
 
   <p>
@@ -215,14 +204,9 @@ end.rcode-->
 
   <!-- Resultado -->
   <div>
-  <!--begin.rcode echo=FALSE
-boxplot(Income ~ Personal.Loan, 
-        data = clientes,
-        main="Ingresos según aceptación",
-        xlab="Aceptó Préstamo",
-        ylab="Ingresos",
-        col=c("#e6fff5", "#00994d"))
-end.rcode-->
+<div class="chunk" id="unnamed-chunk-5"><div class="rcode"><div class="error"><pre class="knitr r">## Error in eval(m$data, parent.frame()): objeto 'clientes' no encontrado
+</pre></div>
+</div></div>
   </div>
 
   <p>
@@ -276,14 +260,9 @@ end.rcode-->
 
   <!-- Resultado -->
   <div>
-  <!--begin.rcode echo=FALSE
-boxplot(CCAvg ~ Personal.Loan,
-        data = clientes,
-        main="Gasto en tarjeta vs aceptación",
-        xlab="Aceptó Préstamo",
-        ylab="Gasto (miles USD)",
-        col=c("#e6fff5", "#00994d"))
-end.rcode-->
+<div class="chunk" id="unnamed-chunk-6"><div class="rcode"><div class="error"><pre class="knitr r">## Error in eval(m$data, parent.frame()): objeto 'clientes' no encontrado
+</pre></div>
+</div></div>
   </div>
 
   <p>
