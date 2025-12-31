@@ -365,6 +365,14 @@
 
   </div>
 </section>
+  <div class="highlight">
+  <p>
+  Desde una perspectiva de negocio, este proyecto busca maximizar el valor de la
+  base de clientes existente, identificando oportunidades de venta de préstamos
+  personales de forma más eficiente y reduciendo el riesgo asociado a decisiones
+  comerciales basadas únicamente en intuición.
+  </p>
+  </div>
 </div>
     </section>
 
@@ -929,6 +937,14 @@ SÍ                            2984         291         0.0975201
     <li><strong>Online:</strong> Uso de banca digital.</li>
     <li><strong>CreditCard:</strong> Posee tarjeta emitida por otro banco.</li>
   </ul>
+  
+  <p>
+Las variables disponibles permiten capturar tres dimensiones clave del cliente:
+<strong>valor económico actual</strong>, <strong>potencial de crecimiento</strong> y
+<strong>nivel de vinculación financiera</strong>. Esta combinación habilita un análisis
+integral que va más allá de la simple descripción demográfica.
+</p>
+
 
   <h4>Sobre la fuente de datos</h4>
   <p>El dataset proviene de una campaña real donde se ofreció un préstamo personal a 5,000 clientes del banco. 
@@ -1404,27 +1420,840 @@ SÍ                            2984         291         0.0975201
   </p>
 </section>
 
+<div class="highlight">
+<p>
+El análisis exploratorio evidencia que no todos los clientes aportan el mismo
+valor al negocio. Existen perfiles claramente diferenciados en términos de gasto,
+uso de productos financieros y capacidad económica, lo que sugiere que una
+estrategia comercial homogénea implica un uso ineficiente de los recursos.
+</p>
+</div>
+
 </div>
     </section>
 
     <section id="seccion4" class="section">
 
-<h2>Análisis de Regresión</h2>
-<p class="section-tag-alert">Próximamente</p>
+<header class="section-header">
+  <p class="section-kicker">Fase 4</p>
+  <h2>Análisis de Regresión – Drivers de Valor del Cliente</h2>
+  <p class="section-subtitle">
+    En esta fase se pasa del análisis descriptivo a la explicación del
+    comportamiento del cliente. El objetivo es identificar qué variables
+    explican el gasto con tarjeta y cómo estos resultados pueden utilizarse
+    para la toma de decisiones de negocio.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!-- 4.1 PREGUNTA DE REGRESIÓN                             -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.1 Preguntas que pueden responderse con un modelo de regresión</h3>
+
+<p>
+A partir del análisis exploratorio previo, se plantea la siguiente pregunta
+principal:
+</p>
+
+<p>
+<strong>
+¿Qué características socioeconómicas explican el gasto promedio mensual
+con tarjeta de crédito (CCAvg)?
+</strong>
+</p>
+
+<p>
+Esta pregunta es clave desde el punto de vista del negocio, ya que el gasto con
+tarjeta funciona como un indicador directo de rentabilidad, nivel de uso de los
+productos financieros y potencial de crecimiento futuro del cliente.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.2 MARCO CONCEPTUAL                                  -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.2 Descripción del problema y relación conceptual entre variables</h3>
+
+<p>
+La variable dependiente del análisis es <strong>CCAvg</strong>, que mide el gasto
+promedio mensual con tarjeta de crédito. Esta variable resume la intensidad de
+uso de uno de los productos más relevantes para la entidad financiera.
+</p>
+
+<p>
+Las variables independientes seleccionadas capturan distintos aspectos del
+perfil del cliente:
+</p>
+
+<ul>
+  <li><strong>Income</strong>: capacidad económica y potencial de consumo.</li>
+  <li><strong>Age</strong>: etapa del ciclo de vida.</li>
+  <li><strong>Family</strong>: compromisos y necesidades financieras.</li>
+  <li><strong>Education</strong>: nivel de sofisticación financiera.</li>
+  <li><strong>Mortgage</strong>: grado de vinculación bancaria.</li>
+</ul>
+
+<p>
+Desde un enfoque conceptual, se espera que clientes con mayor ingreso, mayor
+nivel educativo y mayor vinculación financiera presenten un gasto más elevado
+con tarjeta de crédito.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.3 REGRESIÓN LINEAL SIMPLE                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.3 Regresión lineal simple (Income → CCAvg)</h3>
+
+<p>
+Como primer paso, se ajusta un modelo de regresión lineal simple para analizar la
+relación entre el ingreso anual del cliente y su gasto promedio mensual con
+tarjeta de crédito.
+</p>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-43-1.png" alt="plot of chunk unnamed-chunk-43" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El diagrama de dispersión y la recta de regresión muestran una relación positiva
+clara entre el ingreso anual y el gasto con tarjeta. A medida que el ingreso
+aumenta, el gasto tiende a incrementarse de forma sostenida, lo que indica que la
+capacidad económica es un factor clave del consumo financiero.
+</p>
+
+<p>
+El valor del R² sugiere que el ingreso por sí solo explica una proporción
+relevante de la variabilidad del gasto, aunque también deja en evidencia que
+existen otros factores que influyen en el comportamiento del cliente y que no
+son capturados por este modelo simple.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este resultado respalda la priorización de
+clientes de mayor ingreso para productos premium y estrategias de aumento de
+límites de crédito.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.4 ANÁLISIS BIVARIADO                                -->
+<!-- ===================================================== -->
+<div class="card">
+<h3>4.4 Análisis bivariado – Interpretación detallada</h3>
+
+<!-- ========== Income ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Income y CCAvg</h4>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-44-1.png" alt="plot of chunk unnamed-chunk-44" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El diagrama de dispersión muestra una relación positiva clara y consistente entre
+el ingreso anual y el gasto con tarjeta. A medida que el ingreso aumenta, el gasto
+tiende a incrementarse de forma casi monótona, confirmando que la capacidad
+económica es un determinante central del consumo financiero.
+</p>
+
+<p>
+Si bien existe dispersión individual, la tendencia general es claramente
+creciente. Desde el punto de vista del negocio, los clientes de mayor ingreso
+representan un segmento prioritario para productos de alto valor y ampliación de
+límites de crédito.
+</p>
+</div>
+
+<!-- ========== Age ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Age y CCAvg</h4>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-45-1.png" alt="plot of chunk unnamed-chunk-45" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El gráfico no muestra una relación lineal fuerte entre la edad y el gasto con
+tarjeta. La nube de puntos es dispersa y la pendiente de la recta de regresión es
+baja, lo que sugiere que la edad por sí sola no explica significativamente el
+consumo.
+</p>
+
+<p>
+Esto indica que el efecto de la edad está mediado por otras variables, como el
+ingreso o la etapa laboral. Desde el negocio, segmentar únicamente por edad
+resulta insuficiente para predecir el comportamiento financiero.
+</p>
+</div>
+
+<!-- ========== Family ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Family y CCAvg</h4>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-46-1.png" alt="plot of chunk unnamed-chunk-46" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El tamaño de la familia muestra una relación débil y altamente dispersa con el
+gasto con tarjeta. No se observa una tendencia clara que indique que hogares más
+numerosos gasten sistemáticamente más o menos.
+</p>
+
+<p>
+Este resultado sugiere que Family no es un driver directo del gasto, y que su
+efecto podría perder relevancia al ser incorporado en un modelo multivariado.
+</p>
+</div>
+
+<!-- ========== Education ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Education y CCAvg</h4>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-47-1.png" alt="plot of chunk unnamed-chunk-47" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El boxplot evidencia diferencias claras entre niveles educativos. Los clientes
+con mayor educación presentan medianas de gasto más altas y mayor variabilidad en
+el consumo, lo que sugiere un perfil financiero más sofisticado.
+</p>
+
+<p>
+Desde el punto de vista del negocio, el nivel educativo es una variable útil para
+identificar clientes con mayor potencial de adopción de productos financieros
+complejos.
+</p>
+</div>
+
+<!-- ========== Mortgage ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Mortgage y CCAvg</h4>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-48-1.png" alt="plot of chunk unnamed-chunk-48" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+La relación entre el monto de la hipoteca y el gasto con tarjeta es positiva
+moderada. Los clientes con hipoteca tienden a gastar más, lo que puede
+interpretarse como una señal de mayor bancarización.
+</p>
+
+<p>
+Desde el negocio, la hipoteca actúa como indicador de vinculación y abre
+oportunidades claras de cross-selling.
+</p>
+</div>
+
+<!-- ========== Cierre ========== -->
+<p>
+En conjunto, el análisis bivariado muestra que no todas las variables tienen el
+mismo poder explicativo. El ingreso y el nivel educativo presentan relaciones más
+claras, mientras que edad y tamaño de familia muestran efectos más débiles o
+indirectos. Esto justifica el uso de un modelo multivariado.
+</p>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.5 REGRESIÓN MULTIVARIADA                            -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.5 Regresión lineal multivariada</h3>
+
+<p>
+Finalmente, se ajusta un modelo de regresión lineal múltiple que permite analizar
+el efecto simultáneo de varias variables explicativas. Dado que la variable
+<strong>CCAvg</strong> presenta asimetría positiva, se aplica una transformación
+logarítmica para mejorar los supuestos del modelo.
+</p>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-49-1.png" alt="plot of chunk unnamed-chunk-49" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El modelo multivariado confirma que el ingreso es el principal driver del gasto
+con tarjeta, incluso luego de controlar por edad, tamaño de familia, nivel
+educativo y deuda hipotecaria.
+</p>
+
+<p>
+El nivel educativo mantiene un efecto positivo y significativo, lo que indica
+que existen diferencias estructurales en el comportamiento financiero más allá
+de la capacidad económica. En contraste, variables demográficas como la edad y
+el tamaño de la familia pierden relevancia al controlar por ingreso.
+</p>
+
+<p>
+Los gráficos de diagnóstico sugieren que la transformación logarítmica mejora el
+cumplimiento de los supuestos del modelo, reforzando la validez de las
+conclusiones obtenidas.
+</p>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-50-1.png" alt="plot of chunk unnamed-chunk-50" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+Este gráfico refuerza que el ingreso mantiene un efecto positivo sobre el gasto
+incluso cuando se consideran otras variables explicativas, consolidando su rol
+como principal driver de valor.
+</p>
+</div>
+
+
+<!-- ===================================================== -->
+<!-- 4.6 CONCLUSIONES DE NEGOCIO                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.6 Conclusiones del análisis</h3>
+
+<p>
+El análisis de regresión realizado en esta fase permite identificar con claridad
+los principales <strong>drivers de valor del cliente</strong>. El gasto con
+tarjeta de crédito no depende únicamente de variables demográficas, sino
+fundamentalmente de la capacidad económica y del perfil educativo.
+</p>
+
+<p>
+Desde una perspectiva estratégica, estos resultados aportan evidencia empírica
+para respaldar estrategias de segmentación basadas en valor, priorizando a los
+clientes con mayor potencial de rentabilidad.
+</p>
+
+<p>
+En términos operativos, este análisis puede ser utilizado para:
+</p>
+
+<ul>
+  <li>Definir límites de crédito más ajustados al perfil del cliente.</li>
+  <li>Identificar segmentos prioritarios para productos premium.</li>
+  <li>Diseñar campañas de cross-selling basadas en datos objetivos.</li>
+</ul>
+
+<p>
+En síntesis, la regresión transforma información histórica en
+<strong>criterios analíticos concretos</strong> que apoyan la toma de decisiones
+estratégicas del banco.
+</p>
+</div>
+
+</div>
     </section>
 
     <section id="seccion5" class="section">
 
-<h2>Análisis de Regresión Logística</h2>
-<p class="section-tag-alert">Próximamente</p>
+<header class="section-header">
+  <p class="section-kicker">Fase 5</p>
+  <h2>Análisis de Regresión Logística</h2>
+  <p class="section-subtitle">
+    En esta fase se modela la <strong>probabilidad de aceptación de un préstamo personal</strong>,
+    utilizando regresión logística. El objetivo es transformar datos históricos
+    en decisiones comerciales predictivas.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!-- 5.1 VARIABLE DICOTÓMICA                               -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.1 Variable dependiente dicotómica</h3>
+
+<p>
+Se utiliza la variable <strong>Personal_Loan</strong>, que indica si el cliente
+aceptó (1) o no (0) un préstamo personal ofrecido por la entidad.
+</p>
+
+<div class="highlight">
+Esta variable representa un resultado binario típico de negocio, ideal para ser
+modelado mediante regresión logística.
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.2 TRATAMIENTO DE VARIABLES                          -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.2 Tratamiento de variables explicativas</h3>
+
+<p>
+Se utilizan las mismas variables explicativas empleadas en la regresión lineal
+múltiple, asegurando coherencia entre modelos explicativos y predictivos.
+</p>
+
+<ul>
+  <li><strong>Income</strong>: capacidad económica.</li>
+  <li><strong>Age</strong>: etapa del ciclo de vida.</li>
+  <li><strong>Family</strong>: estructura familiar.</li>
+  <li><strong>Education</strong>: nivel educativo.</li>
+  <li><strong>Mortgage</strong>: vinculación financiera.</li>
+</ul>
+
+
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.3 MODELO LOGÍSTICO SIMPLE                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.3 Regresión logística simple (Income → Préstamo)</h3>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-62-1.png" alt="plot of chunk unnamed-chunk-62" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El gráfico muestra la relación no lineal característica de la regresión logística
+entre el ingreso anual del cliente y la probabilidad estimada de aceptar un
+préstamo personal.
+</p>
+
+<p>
+Para niveles bajos de ingreso, la probabilidad de aceptación es cercana a cero.
+A medida que el ingreso aumenta, la probabilidad crece de forma acelerada hasta
+alcanzar valores elevados, reflejando el efecto positivo y significativo del
+ingreso observado en el modelo estadístico.
+</p>
+
+<p>
+Desde una perspectiva de negocio, este gráfico permite identificar umbrales de
+ingreso a partir de los cuales la probabilidad de conversión aumenta de manera
+sustancial, facilitando la focalización de campañas comerciales.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.4 MODELO LOGÍSTICO MULTIVARIADO                     -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.4 Regresión logística multivariada</h3>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-63-1.png" alt="plot of chunk unnamed-chunk-63" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El gráfico representa la probabilidad ajustada de aceptar un préstamo personal
+según el ingreso, manteniendo constantes el resto de las variables explicativas.
+La relación positiva entre ingreso y probabilidad de aceptación se mantiene clara
+y pronunciada.
+</p>
+
+<p>
+Esto confirma que el ingreso no solo es relevante en análisis simples, sino que
+actúa como un driver estructural de la aceptación del préstamo incluso cuando se
+controla por edad, tamaño de familia, nivel educativo y deuda hipotecaria.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este resultado valida el uso del ingreso como
+criterio central para priorizar clientes en campañas de préstamos personales,
+reduciendo costos y aumentando la tasa de conversión.
+</p>
+
+<h4>Odds Ratios</h4>
+
+<div>
+
+</div><div class="rimage default"><img src="figure/unnamed-chunk-64-1.png" alt="plot of chunk unnamed-chunk-64" class="plot" /></div><div class="rcode">
+
+
+</div>
+
+<p>
+El gráfico de odds ratios permite interpretar visualmente el impacto relativo de
+cada variable explicativa sobre la probabilidad de aceptar un préstamo personal.
+La línea vertical roja representa un odds ratio igual a 1, que indica ausencia
+de efecto.
+</p>
+
+<p>
+Variables con odds ratios mayores a 1 incrementan la probabilidad de aceptación,
+mientras que valores cercanos o inferiores a 1 indican un efecto débil o nulo.
+En particular, el ingreso y el nivel educativo destacan como los principales
+drivers de conversión.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este gráfico facilita la priorización de
+variables clave para la segmentación y el diseño de campañas comerciales
+focalizadas.
+</p>
+
+
+<p>
+Los odds ratios permiten interpretar los coeficientes del modelo en términos
+prácticos. Por ejemplo, un aumento en el ingreso incrementa multiplicativamente
+las probabilidades relativas de aceptar el préstamo, reforzando su rol como
+principal driver de conversión.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.5 INTERPRETACIÓN GLOBAL                             -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.5 Interpretación de resultados</h3>
+
+<p>
+En regresión logística, los coeficientes representan cambios en el log-odds de
+aceptación. Un coeficiente positivo implica un aumento en la probabilidad, mientras
+que uno negativo indica una disminución.
+</p>
+
+<p>
+Desde una perspectiva aplicada, el modelo permite priorizar clientes con mayor
+probabilidad de conversión, optimizando recursos comerciales.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.6 CONCLUSIONES DE NEGOCIO                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.6 Conclusiones del análisis </h3>
+
+<p>
+La regresión logística identifica perfiles de clientes con mayor probabilidad de
+aceptar un préstamo personal. El ingreso y el nivel educativo emergen como los
+principales drivers de conversión.
+</p>
+
+<ul>
+  <li>Mejora la segmentación de campañas.</li>
+  <li>Reduce costos comerciales.</li>
+  <li>Aumenta la tasa de aceptación.</li>
+</ul>
+
+<p>
+En síntesis, este modelo convierte datos históricos en una herramienta predictiva
+clave para la toma de decisiones estratégicas.
+</p>
+</div>
+</div>
+
+</div>
     </section>
 
     <section id="seccion6" class="section">
 
-<h2>Analisis de Conglomerados</h2>
-<p class="section-tag-alert">Próximamente</p>
+<header class="section-header">
+  <p class="section-kicker">Fase 6</p>
+  <h2>Análisis de Conglomerados – Segmentación de Clientes</h2>
+  <p class="section-subtitle">
+    En esta fase se aplica una técnica de segmentación para identificar grupos
+    homogéneos de clientes con características similares, con el objetivo de
+    apoyar estrategias de marketing y gestión comercial basadas en datos.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!-- 6.1 OBJETIVO DE LA SEGMENTACIÓN                       -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.1 Objetivo del análisis de conglomerados</h3>
+
+<p>
+El objetivo del análisis de conglomerados es segmentar a los clientes en grupos
+homogéneos según sus características socioeconómicas y financieras, sin utilizar
+una variable objetivo previa.
+</p>
+
+<p>
+Esta segmentación permite identificar perfiles de clientes diferenciados y
+diseñar estrategias comerciales específicas para cada grupo.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.2 SELECCIÓN DE VARIABLES                            -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.2 Selección y justificación de variables</h3>
+
+<p>
+Se seleccionan cinco variables relevantes, priorizando simplicidad e
+interpretabilidad, tal como se sugiere en la consigna:
+</p>
+
+<ul>
+  <li><strong>Income</strong>: capacidad económica.</li>
+  <li><strong>CCAvg</strong>: intensidad de uso de la tarjeta.</li>
+  <li><strong>Age</strong>: etapa del ciclo de vida.</li>
+  <li><strong>Education</strong>: sofisticación financiera (tratada como ordinal).</li>
+  <li><strong>Mortgage</strong>: nivel de endeudamiento.</li>
+</ul>
+
+<p>
+Estas variables combinan información de valor económico, comportamiento de uso y
+perfil demográfico, lo que las hace adecuadas para una segmentación de clientes.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.3 PREPARACIÓN DE LOS DATOS                          -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.3 Preparación de los datos</h3>
+
+<p>
+Dado que las variables se encuentran en escalas diferentes, se realiza una
+estandarización previa para evitar que variables con mayor magnitud dominen el
+proceso de clusterización.
+</p>
+
+<div>
+
+</div>
+
+<p>
+La segmentación obtenida permite pasar de una visión agregada del cliente a una
+gestión estratégica basada en perfiles diferenciados. Cada conglomerado presenta
+niveles distintos de valor, comportamiento financiero y potencial de crecimiento.
+</p>
+
+<p>
+Desde el punto de vista del negocio, esta información permite diseñar estrategias
+específicas para cada segmento: fidelización de clientes de alto valor,
+estimulación del crecimiento en segmentos intermedios y optimización de costes
+en segmentos de bajo retorno.
+</p>
+
+
+<div class="highlight">
+La estandarización es un paso crítico en algoritmos basados en distancia como
+K-means, ya que garantiza que todas las variables contribuyan de manera
+equilibrada al proceso de segmentación.
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.4 SELECCIÓN DEL NÚMERO DE CLUSTERS                  -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.4 Determinación del número óptimo de clusters</h3>
+
+<p>
+Se utiliza el método del codo para identificar el número adecuado de clusters,
+analizando la variación de la suma de cuadrados intra-cluster.
+</p>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-72-1.png" alt="plot of chunk unnamed-chunk-72" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+A partir del gráfico, se identifica un punto de inflexión en torno a
+<strong>k = 3</strong>, lo que sugiere la existencia de tres segmentos
+diferenciados de clientes.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.5 APLICACIÓN DEL ALGORITMO                          -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.5 Aplicación del algoritmo de K-means</h3>
+
+<div>
+
+</div>
+
+<p>
+Cada cliente queda asignado a uno de los tres clusters identificados, lo que
+permite analizar las características promedio de cada segmento.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.6 VISUALIZACIÓN DE CLUSTERS                         -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.6 Visualización de los conglomerados</h3>
+
+<div>
+</div><div class="rimage default"><img src="figure/unnamed-chunk-74-1.png" alt="plot of chunk unnamed-chunk-74" class="plot" /></div><div class="rcode">
+
+</div>
+
+<p>
+El gráfico muestra una separación clara entre los clientes en función de su nivel
+de ingreso y su gasto con tarjeta. El cluster asociado a altos ingresos y alto
+uso del crédito representa el segmento de mayor valor para la entidad financiera.
+</p>
+
+<p>
+Los clusters intermedios reflejan clientes con potencial de crecimiento, mientras
+que el grupo de menor ingreso y gasto sugiere un segmento donde conviene aplicar
+estrategias comerciales más conservadoras.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.7 INTERPRETACIÓN DE RESULTADOS                      -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.7 Interpretación de los conglomerados</h3>
+
+<ul>
+  <li><strong>Cluster 1</strong>: clientes de ingresos medios, gasto moderado y
+  vinculación financiera intermedia.</li>
+  <li><strong>Cluster 2</strong>: clientes de alto ingreso y alto gasto con tarjeta,
+  representando el segmento de mayor valor.</li>
+  <li><strong>Cluster 3</strong>: clientes de menor ingreso y bajo uso de productos
+  crediticios.</li>
+</ul>
+
+<p>
+Cada cluster representa un perfil diferenciado, lo que permite adaptar las
+estrategias comerciales a las características específicas de cada grupo.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.8 CONCLUSIONES DE NEGOCIO                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.8 Conclusiones del análisis</h3>
+
+<p>
+La segmentación obtenida permite diferenciar claramente perfiles de clientes con
+distinto valor y comportamiento financiero. Esta información es clave para
+diseñar estrategias comerciales diferenciadas y eficientes.
+</p>
+
+<ul>
+  <li>Focalizar productos premium en el cluster de alto valor.</li>
+  <li>Diseñar estrategias de crecimiento para segmentos intermedios.</li>
+  <li>Optimizar costos comerciales en segmentos de bajo potencial.</li>
+</ul>
+
+<p>
+En síntesis, el análisis de conglomerados complementa los modelos de regresión,
+aportando una visión estratégica basada en segmentación de clientes.
+</p>
+</div>
+
+</div>
     </section>
   </main>
+  
+  <section class="section final-section">
+  <div class="final-hero">
+    <h2>Conclusiones generales del proyecto</h2>
+    <p class="lead">
+      De los datos a la decisión: cómo la analítica avanzada impulsa el valor del
+      negocio financiero.
+    </p>
+  
+    <div class="final-card">
+  
+      <p>
+      El presente proyecto integró de manera progresiva técnicas de analítica de
+      datos para comprender, explicar, predecir y segmentar el comportamiento de los
+      clientes de una entidad financiera en relación con el uso de productos
+      crediticios.
+      </p>
+  
+      <p>
+      En las primeras fases, el análisis exploratorio permitió identificar patrones
+      relevantes y relaciones clave en los datos, sentando las bases para modelos
+      más avanzados. Posteriormente, la regresión lineal permitió identificar los
+      principales drivers del gasto con tarjeta de crédito, destacando la capacidad
+      económica y el nivel educativo como factores determinantes del valor del
+      cliente.
+      </p>
+  
+      <div class="highlight">
+        La regresión logística aportó una dimensión predictiva al proyecto,
+        permitiendo estimar la probabilidad de aceptación de un préstamo personal y
+        transformar información histórica en decisiones comerciales accionables.
+      </div>
+  
+      <p>
+      Finalmente, el análisis de conglomerados permitió segmentar a los clientes en
+      grupos homogéneos, revelando perfiles claramente diferenciados en términos de
+      valor económico, comportamiento financiero y potencial de crecimiento. Esta
+      segmentación complementa los modelos de regresión al aportar una visión
+      estratégica basada en perfiles de cliente.
+      </p>
+  
+      <p>
+      Desde una perspectiva de negocio, el proyecto demuestra cómo la analítica
+      avanzada permite optimizar la segmentación, mejorar la eficiencia comercial,
+      reducir riesgos y maximizar la rentabilidad de forma sostenible.
+      </p>
+  
+      <div class="final-metrics">
+        <div class="metric-box">
+          <h4>Explicar</h4>
+          <p>Identificación de drivers de valor del cliente</p>
+        </div>
+        <div class="metric-box">
+          <h4>Predecir</h4>
+          <p>Probabilidad de aceptación de préstamos</p>
+        </div>
+        <div class="metric-box">
+          <h4>Segmentar</h4>
+          <p>Clusters accionables para estrategias comerciales</p>
+        </div>
+      </div>
+  
+      <p style="margin-top:40px;">
+      En síntesis, este proyecto evidencia el valor de integrar técnicas descriptivas,
+      explicativas, predictivas y de segmentación para apoyar la toma de decisiones
+      estratégicas en entornos financieros reales, alineando la analítica con los
+      objetivos del negocio.
+      </p>
+  
+    </div>
+  </div>
+  
+  </section>
+
 
   <!-- FOOTER -->
   <footer id="footer" class="footer">
