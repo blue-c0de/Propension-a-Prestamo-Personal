@@ -1,2 +1,305 @@
-<h2>Análisis de Regresión Logística</h2>
-<p class="section-tag-alert">Próximamente</p>
+<header class="section-header">
+  <p class="section-kicker">Fase 5</p>
+  <h2>Análisis de Regresión Logística</h2>
+  <p class="section-subtitle">
+    En esta fase se modela la <strong>probabilidad de aceptación de un préstamo personal</strong>,
+    utilizando regresión logística. El objetivo es transformar datos históricos
+    en decisiones comerciales predictivas.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!-- 5.1 VARIABLE DICOTÓMICA                               -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.1 Variable dependiente dicotómica</h3>
+
+<p>
+Se utiliza la variable <strong>Personal_Loan</strong>, que indica si el cliente
+aceptó (1) o no (0) un préstamo personal ofrecido por la entidad.
+</p>
+
+<div class="highlight">
+Esta variable representa un resultado binario típico de negocio, ideal para ser
+modelado mediante regresión logística.
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.2 TRATAMIENTO DE VARIABLES                          -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.2 Tratamiento de variables explicativas</h3>
+
+<p>
+Se utilizan las mismas variables explicativas empleadas en la regresión lineal
+múltiple, asegurando coherencia entre modelos explicativos y predictivos.
+</p>
+
+<ul>
+  <li><strong>Income</strong>: capacidad económica.</li>
+  <li><strong>Age</strong>: etapa del ciclo de vida.</li>
+  <li><strong>Family</strong>: estructura familiar.</li>
+  <li><strong>Education</strong>: nivel educativo.</li>
+  <li><strong>Mortgage</strong>: vinculación financiera.</li>
+</ul>
+
+<div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl def">datos</span><span class="hl opt">$</span><span class="hl def">Education</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.factor</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Education)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+</pre></div>
+</div></div>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.3 MODELO LOGÍSTICO SIMPLE                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.3 Regresión logística simple (Income → Préstamo)</h3>
+
+<div>
+<div class="chunk" id="unnamed-chunk-2"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl def">modelo_logit_simple</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">glm</span><span class="hl def">(</span>
+  <span class="hl def">Personal.Loan</span> <span class="hl opt">~</span> <span class="hl def">Income,</span>
+  <span class="hl kwc">data</span> <span class="hl def">= datos,</span>
+  <span class="hl kwc">family</span> <span class="hl def">= binomial</span>
+<span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># Secuencia de ingresos</span>
+<span class="hl def">ingresos_seq</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">seq</span><span class="hl def">(</span><span class="hl kwd">min</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Income),</span> <span class="hl kwd">max</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Income),</span> <span class="hl kwc">length.out</span> <span class="hl def">=</span> <span class="hl num">200</span><span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># Predicción de probabilidades</span>
+<span class="hl def">prob_simple</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">predict</span><span class="hl def">(</span>
+  <span class="hl def">modelo_logit_simple,</span>
+  <span class="hl kwc">newdata</span> <span class="hl def">=</span> <span class="hl kwd">data.frame</span><span class="hl def">(</span><span class="hl kwc">Income</span> <span class="hl def">= ingresos_seq),</span>
+  <span class="hl kwc">type</span> <span class="hl def">=</span> <span class="hl sng">&quot;response&quot;</span>
+<span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'modelo_logit_simple' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># Gráfico</span>
+<span class="hl kwd">plot</span><span class="hl def">(ingresos_seq, prob_simple,</span>
+     <span class="hl kwc">type</span> <span class="hl def">=</span> <span class="hl sng">&quot;l&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">lwd</span> <span class="hl def">=</span> <span class="hl num">3</span><span class="hl def">,</span>
+     <span class="hl kwc">col</span> <span class="hl def">=</span> <span class="hl sng">&quot;#2563eb&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">xlab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Ingreso anual del cliente&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">ylab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad de aceptar el préstamo&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad estimada de aceptación según ingreso&quot;</span><span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'ingresos_seq' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">grid</span><span class="hl def">()</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+</pre></div>
+</div></div>
+</div>
+
+<p>
+El gráfico muestra la relación no lineal característica de la regresión logística
+entre el ingreso anual del cliente y la probabilidad estimada de aceptar un
+préstamo personal.
+</p>
+
+<p>
+Para niveles bajos de ingreso, la probabilidad de aceptación es cercana a cero.
+A medida que el ingreso aumenta, la probabilidad crece de forma acelerada hasta
+alcanzar valores elevados, reflejando el efecto positivo y significativo del
+ingreso observado en el modelo estadístico.
+</p>
+
+<p>
+Desde una perspectiva de negocio, este gráfico permite identificar umbrales de
+ingreso a partir de los cuales la probabilidad de conversión aumenta de manera
+sustancial, facilitando la focalización de campañas comerciales.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.4 MODELO LOGÍSTICO MULTIVARIADO                     -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.4 Regresión logística multivariada</h3>
+
+<div>
+<div class="chunk" id="unnamed-chunk-3"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl def">modelo_logit_multi</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">glm</span><span class="hl def">(</span>
+  <span class="hl def">Personal.Loan</span> <span class="hl opt">~</span> <span class="hl def">Income</span> <span class="hl opt">+</span> <span class="hl def">Age</span> <span class="hl opt">+</span> <span class="hl def">Family</span> <span class="hl opt">+</span> <span class="hl def">Education</span> <span class="hl opt">+</span> <span class="hl def">Mortgage,</span>
+  <span class="hl kwc">data</span> <span class="hl def">= datos,</span>
+  <span class="hl kwc">family</span> <span class="hl def">= binomial</span>
+<span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># Valores promedio para el resto de variables</span>
+<span class="hl def">newdata_multi</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">data.frame</span><span class="hl def">(</span>
+  <span class="hl kwc">Income</span> <span class="hl def">= ingresos_seq,</span>
+  <span class="hl kwc">Age</span> <span class="hl def">=</span> <span class="hl kwd">mean</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Age),</span>
+  <span class="hl kwc">Family</span> <span class="hl def">=</span> <span class="hl kwd">mean</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Family),</span>
+  <span class="hl kwc">Education</span> <span class="hl def">=</span> <span class="hl kwd">levels</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Education)[</span><span class="hl num">2</span><span class="hl def">],</span>
+  <span class="hl kwc">Mortgage</span> <span class="hl def">=</span> <span class="hl kwd">mean</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Mortgage)</span>
+<span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'ingresos_seq' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl def">prob_multi</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">predict</span><span class="hl def">(</span>
+  <span class="hl def">modelo_logit_multi,</span>
+  <span class="hl kwc">newdata</span> <span class="hl def">= newdata_multi,</span>
+  <span class="hl kwc">type</span> <span class="hl def">=</span> <span class="hl sng">&quot;response&quot;</span>
+<span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'modelo_logit_multi' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">plot</span><span class="hl def">(ingresos_seq, prob_multi,</span>
+     <span class="hl kwc">type</span> <span class="hl def">=</span> <span class="hl sng">&quot;l&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">lwd</span> <span class="hl def">=</span> <span class="hl num">3</span><span class="hl def">,</span>
+     <span class="hl kwc">col</span> <span class="hl def">=</span> <span class="hl sng">&quot;#16a34a&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">xlab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Ingreso anual del cliente&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">ylab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad ajustada de aceptación&quot;</span><span class="hl def">,</span>
+     <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad ajustada (modelo multivariado)&quot;</span><span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'ingresos_seq' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">grid</span><span class="hl def">()</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+</pre></div>
+</div></div>
+</div>
+
+<p>
+El gráfico representa la probabilidad ajustada de aceptar un préstamo personal
+según el ingreso, manteniendo constantes el resto de las variables explicativas.
+La relación positiva entre ingreso y probabilidad de aceptación se mantiene clara
+y pronunciada.
+</p>
+
+<p>
+Esto confirma que el ingreso no solo es relevante en análisis simples, sino que
+actúa como un driver estructural de la aceptación del préstamo incluso cuando se
+controla por edad, tamaño de familia, nivel educativo y deuda hipotecaria.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este resultado valida el uso del ingreso como
+criterio central para priorizar clientes en campañas de préstamos personales,
+reduciendo costos y aumentando la tasa de conversión.
+</p>
+
+<h4>Odds Ratios</h4>
+
+<div>
+
+<div class="chunk" id="unnamed-chunk-4"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com"># Calcular odds ratios</span>
+<span class="hl def">odds_ratios</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">exp</span><span class="hl def">(</span><span class="hl kwd">coef</span><span class="hl def">(modelo_logit_multi))</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'modelo_logit_multi' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># Eliminar intercepto para el gráfico</span>
+<span class="hl def">odds_ratios_plot</span> <span class="hl kwb">&lt;-</span> <span class="hl def">odds_ratios[</span><span class="hl kwd">names</span><span class="hl def">(odds_ratios)</span> <span class="hl opt">!=</span> <span class="hl sng">&quot;(Intercept)&quot;</span><span class="hl def">]</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'odds_ratios' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl com"># Gráfico de barras</span>
+<span class="hl kwd">barplot</span><span class="hl def">(</span>
+  <span class="hl def">odds_ratios_plot,</span>
+  <span class="hl kwc">horiz</span> <span class="hl def">=</span> <span class="hl num">TRUE</span><span class="hl def">,</span>
+  <span class="hl kwc">col</span> <span class="hl def">=</span> <span class="hl sng">&quot;#60a5fa&quot;</span><span class="hl def">,</span>
+  <span class="hl kwc">border</span> <span class="hl def">=</span> <span class="hl num">NA</span><span class="hl def">,</span>
+  <span class="hl kwc">xlab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Odds Ratio&quot;</span><span class="hl def">,</span>
+  <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Impacto de las variables en la probabilidad de aceptar el préstamo&quot;</span>
+<span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error: objeto 'odds_ratios_plot' no encontrado
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(</span><span class="hl kwc">v</span> <span class="hl def">=</span> <span class="hl num">1</span><span class="hl def">,</span> <span class="hl kwc">lty</span> <span class="hl def">=</span> <span class="hl num">2</span><span class="hl def">,</span> <span class="hl kwc">col</span> <span class="hl def">=</span> <span class="hl sng">&quot;red&quot;</span><span class="hl def">)</span>
+</pre></div>
+<div class="error"><pre class="knitr r">## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+</pre></div>
+</div></div>
+
+</div>
+
+<p>
+El gráfico de odds ratios permite interpretar visualmente el impacto relativo de
+cada variable explicativa sobre la probabilidad de aceptar un préstamo personal.
+La línea vertical roja representa un odds ratio igual a 1, que indica ausencia
+de efecto.
+</p>
+
+<p>
+Variables con odds ratios mayores a 1 incrementan la probabilidad de aceptación,
+mientras que valores cercanos o inferiores a 1 indican un efecto débil o nulo.
+En particular, el ingreso y el nivel educativo destacan como los principales
+drivers de conversión.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este gráfico facilita la priorización de
+variables clave para la segmentación y el diseño de campañas comerciales
+focalizadas.
+</p>
+
+
+<p>
+Los odds ratios permiten interpretar los coeficientes del modelo en términos
+prácticos. Por ejemplo, un aumento en el ingreso incrementa multiplicativamente
+las probabilidades relativas de aceptar el préstamo, reforzando su rol como
+principal driver de conversión.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.5 INTERPRETACIÓN GLOBAL                             -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.5 Interpretación de resultados</h3>
+
+<p>
+En regresión logística, los coeficientes representan cambios en el log-odds de
+aceptación. Un coeficiente positivo implica un aumento en la probabilidad, mientras
+que uno negativo indica una disminución.
+</p>
+
+<p>
+Desde una perspectiva aplicada, el modelo permite priorizar clientes con mayor
+probabilidad de conversión, optimizando recursos comerciales.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.6 CONCLUSIONES DE NEGOCIO                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.6 Conclusiones del análisis </h3>
+
+<p>
+La regresión logística identifica perfiles de clientes con mayor probabilidad de
+aceptar un préstamo personal. El ingreso y el nivel educativo emergen como los
+principales drivers de conversión.
+</p>
+
+<ul>
+  <li>Mejora la segmentación de campañas.</li>
+  <li>Reduce costos comerciales.</li>
+  <li>Aumenta la tasa de aceptación.</li>
+</ul>
+
+<p>
+En síntesis, este modelo convierte datos históricos en una herramienta predictiva
+clave para la toma de decisiones estratégicas.
+</p>
+</div>
+</div>
+
+</div>

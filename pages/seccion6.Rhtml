@@ -1,2 +1,252 @@
-<h2>Analisis de Conglomerados</h2>
-<p class="section-tag-alert">Próximamente</p>
+<header class="section-header">
+  <p class="section-kicker">Fase 6</p>
+  <h2>Análisis de Conglomerados – Segmentación de Clientes</h2>
+  <p class="section-subtitle">
+    En esta fase se aplica una técnica de segmentación para identificar grupos
+    homogéneos de clientes con características similares, con el objetivo de
+    apoyar estrategias de marketing y gestión comercial basadas en datos.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!-- 6.1 OBJETIVO DE LA SEGMENTACIÓN                       -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.1 Objetivo del análisis de conglomerados</h3>
+
+<p>
+El objetivo del análisis de conglomerados es segmentar a los clientes en grupos
+homogéneos según sus características socioeconómicas y financieras, sin utilizar
+una variable objetivo previa.
+</p>
+
+<p>
+Esta segmentación permite identificar perfiles de clientes diferenciados y
+diseñar estrategias comerciales específicas para cada grupo.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.2 SELECCIÓN DE VARIABLES                            -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.2 Selección y justificación de variables</h3>
+
+<p>
+Se seleccionan cinco variables relevantes, priorizando simplicidad e
+interpretabilidad, tal como se sugiere en la consigna:
+</p>
+
+<ul>
+  <li><strong>Income</strong>: capacidad económica.</li>
+  <li><strong>CCAvg</strong>: intensidad de uso de la tarjeta.</li>
+  <li><strong>Age</strong>: etapa del ciclo de vida.</li>
+  <li><strong>Education</strong>: sofisticación financiera (tratada como ordinal).</li>
+  <li><strong>Mortgage</strong>: nivel de endeudamiento.</li>
+</ul>
+
+<p>
+Estas variables combinan información de valor económico, comportamiento de uso y
+perfil demográfico, lo que las hace adecuadas para una segmentación de clientes.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.3 PREPARACIÓN DE LOS DATOS                          -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.3 Preparación de los datos</h3>
+
+<p>
+Dado que las variables se encuentran en escalas diferentes, se realiza una
+estandarización previa para evitar que variables con mayor magnitud dominen el
+proceso de clusterización.
+</p>
+
+<div>
+<!--begin.rcode
+# Selección de variables numéricas
+vars_cluster <- datos[, c("Income", "CCAvg", "Age", "Mortgage")]
+
+# Incorporar Education como variable ordinal
+vars_cluster$Education <- as.numeric(datos$Education)
+
+# Estandarización
+vars_cluster_scaled <- scale(vars_cluster)
+end.rcode-->
+</div>
+
+<p>
+La segmentación obtenida permite pasar de una visión agregada del cliente a una
+gestión estratégica basada en perfiles diferenciados. Cada conglomerado presenta
+niveles distintos de valor, comportamiento financiero y potencial de crecimiento.
+</p>
+
+<p>
+Desde el punto de vista del negocio, esta información permite diseñar estrategias
+específicas para cada segmento: fidelización de clientes de alto valor,
+estimulación del crecimiento en segmentos intermedios y optimización de costes
+en segmentos de bajo retorno.
+</p>
+
+
+<div class="highlight">
+La estandarización es un paso crítico en algoritmos basados en distancia como
+K-means, ya que garantiza que todas las variables contribuyan de manera
+equilibrada al proceso de segmentación.
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.4 SELECCIÓN DEL NÚMERO DE CLUSTERS                  -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.4 Determinación del número óptimo de clusters</h3>
+
+<p>
+Se utiliza el método del codo para identificar el número adecuado de clusters,
+analizando la variación de la suma de cuadrados intra-cluster.
+</p>
+
+<div>
+<!--begin.rcode
+set.seed(123)
+
+wss <- sapply(1:10, function(k){
+  kmeans(vars_cluster_scaled, centers = k, nstart = 20)$tot.withinss
+})
+
+plot(1:10, wss, type="b", pch=19,
+     col = "#2563eb",
+     xlab="Número de clusters (k)",
+     ylab="Suma de cuadrados intra-cluster",
+     main="Método del codo")
+end.rcode-->
+</div>
+
+<p>
+A partir del gráfico, se identifica un punto de inflexión en torno a
+<strong>k = 3</strong>, lo que sugiere la existencia de tres segmentos
+diferenciados de clientes.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.5 APLICACIÓN DEL ALGORITMO                          -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.5 Aplicación del algoritmo de K-means</h3>
+
+<div>
+<!--begin.rcode
+set.seed(123)
+
+kmeans_model <- kmeans(
+  vars_cluster_scaled,
+  centers = 3,
+  nstart = 25
+)
+
+datos$Cluster <- as.factor(kmeans_model$cluster)
+end.rcode-->
+</div>
+
+<p>
+Cada cliente queda asignado a uno de los tres clusters identificados, lo que
+permite analizar las características promedio de cada segmento.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.6 VISUALIZACIÓN DE CLUSTERS                         -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.6 Visualización de los conglomerados</h3>
+
+<div>
+<!--begin.rcode
+plot(vars_cluster_scaled[, "Income"],
+     vars_cluster_scaled[, "CCAvg"],
+     col = datos$Cluster,
+     pch = 19,
+     xlab = "Income (estandarizado)",
+     ylab = "CCAvg (estandarizado)",
+     main = "Visualización de clusters")
+
+legend("topright",
+       legend = paste("Cluster", levels(datos$Cluster)),
+       col = 1:length(levels(datos$Cluster)),
+       pch = 19,
+       bty = "n")
+end.rcode-->
+</div>
+
+<p>
+El gráfico muestra una separación clara entre los clientes en función de su nivel
+de ingreso y su gasto con tarjeta. El cluster asociado a altos ingresos y alto
+uso del crédito representa el segmento de mayor valor para la entidad financiera.
+</p>
+
+<p>
+Los clusters intermedios reflejan clientes con potencial de crecimiento, mientras
+que el grupo de menor ingreso y gasto sugiere un segmento donde conviene aplicar
+estrategias comerciales más conservadoras.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.7 INTERPRETACIÓN DE RESULTADOS                      -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.7 Interpretación de los conglomerados</h3>
+
+<ul>
+  <li><strong>Cluster 1</strong>: clientes de ingresos medios, gasto moderado y
+  vinculación financiera intermedia.</li>
+  <li><strong>Cluster 2</strong>: clientes de alto ingreso y alto gasto con tarjeta,
+  representando el segmento de mayor valor.</li>
+  <li><strong>Cluster 3</strong>: clientes de menor ingreso y bajo uso de productos
+  crediticios.</li>
+</ul>
+
+<p>
+Cada cluster representa un perfil diferenciado, lo que permite adaptar las
+estrategias comerciales a las características específicas de cada grupo.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 6.8 CONCLUSIONES DE NEGOCIO                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>6.8 Conclusiones del análisis</h3>
+
+<p>
+La segmentación obtenida permite diferenciar claramente perfiles de clientes con
+distinto valor y comportamiento financiero. Esta información es clave para
+diseñar estrategias comerciales diferenciadas y eficientes.
+</p>
+
+<ul>
+  <li>Focalizar productos premium en el cluster de alto valor.</li>
+  <li>Diseñar estrategias de crecimiento para segmentos intermedios.</li>
+  <li>Optimizar costos comerciales en segmentos de bajo potencial.</li>
+</ul>
+
+<p>
+En síntesis, el análisis de conglomerados complementa los modelos de regresión,
+aportando una visión estratégica basada en segmentación de clientes.
+</p>
+</div>
+
+</div>

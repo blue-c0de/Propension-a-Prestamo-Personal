@@ -1,2 +1,275 @@
-<h2>Análisis de Regresión Logística</h2>
-<p class="section-tag-alert">Próximamente</p>
+<header class="section-header">
+  <p class="section-kicker">Fase 5</p>
+  <h2>Análisis de Regresión Logística</h2>
+  <p class="section-subtitle">
+    En esta fase se modela la <strong>probabilidad de aceptación de un préstamo personal</strong>,
+    utilizando regresión logística. El objetivo es transformar datos históricos
+    en decisiones comerciales predictivas.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!-- 5.1 VARIABLE DICOTÓMICA                               -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.1 Variable dependiente dicotómica</h3>
+
+<p>
+Se utiliza la variable <strong>Personal_Loan</strong>, que indica si el cliente
+aceptó (1) o no (0) un préstamo personal ofrecido por la entidad.
+</p>
+
+<div class="highlight">
+Esta variable representa un resultado binario típico de negocio, ideal para ser
+modelado mediante regresión logística.
+</div>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.2 TRATAMIENTO DE VARIABLES                          -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.2 Tratamiento de variables explicativas</h3>
+
+<p>
+Se utilizan las mismas variables explicativas empleadas en la regresión lineal
+múltiple, asegurando coherencia entre modelos explicativos y predictivos.
+</p>
+
+<ul>
+  <li><strong>Income</strong>: capacidad económica.</li>
+  <li><strong>Age</strong>: etapa del ciclo de vida.</li>
+  <li><strong>Family</strong>: estructura familiar.</li>
+  <li><strong>Education</strong>: nivel educativo.</li>
+  <li><strong>Mortgage</strong>: vinculación financiera.</li>
+</ul>
+
+<!--begin.rcode
+datos$Education <- as.factor(datos$Education)
+end.rcode-->
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.3 MODELO LOGÍSTICO SIMPLE                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.3 Regresión logística simple (Income → Préstamo)</h3>
+
+<div>
+<!--begin.rcode
+modelo_logit_simple <- glm(
+  Personal.Loan ~ Income,
+  data = datos,
+  family = binomial
+)
+
+# Secuencia de ingresos
+ingresos_seq <- seq(min(datos$Income), max(datos$Income), length.out = 200)
+
+# Predicción de probabilidades
+prob_simple <- predict(
+  modelo_logit_simple,
+  newdata = data.frame(Income = ingresos_seq),
+  type = "response"
+)
+
+# Gráfico
+plot(ingresos_seq, prob_simple,
+     type = "l",
+     lwd = 3,
+     col = "#2563eb",
+     xlab = "Ingreso anual del cliente",
+     ylab = "Probabilidad de aceptar el préstamo",
+     main = "Probabilidad estimada de aceptación según ingreso")
+
+grid()
+end.rcode-->
+</div>
+
+<p>
+El gráfico muestra la relación no lineal característica de la regresión logística
+entre el ingreso anual del cliente y la probabilidad estimada de aceptar un
+préstamo personal.
+</p>
+
+<p>
+Para niveles bajos de ingreso, la probabilidad de aceptación es cercana a cero.
+A medida que el ingreso aumenta, la probabilidad crece de forma acelerada hasta
+alcanzar valores elevados, reflejando el efecto positivo y significativo del
+ingreso observado en el modelo estadístico.
+</p>
+
+<p>
+Desde una perspectiva de negocio, este gráfico permite identificar umbrales de
+ingreso a partir de los cuales la probabilidad de conversión aumenta de manera
+sustancial, facilitando la focalización de campañas comerciales.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.4 MODELO LOGÍSTICO MULTIVARIADO                     -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.4 Regresión logística multivariada</h3>
+
+<div>
+<!--begin.rcode
+modelo_logit_multi <- glm(
+  Personal.Loan ~ Income + Age + Family + Education + Mortgage,
+  data = datos,
+  family = binomial
+)
+
+# Valores promedio para el resto de variables
+newdata_multi <- data.frame(
+  Income = ingresos_seq,
+  Age = mean(datos$Age),
+  Family = mean(datos$Family),
+  Education = levels(datos$Education)[2],
+  Mortgage = mean(datos$Mortgage)
+)
+
+prob_multi <- predict(
+  modelo_logit_multi,
+  newdata = newdata_multi,
+  type = "response"
+)
+
+plot(ingresos_seq, prob_multi,
+     type = "l",
+     lwd = 3,
+     col = "#16a34a",
+     xlab = "Ingreso anual del cliente",
+     ylab = "Probabilidad ajustada de aceptación",
+     main = "Probabilidad ajustada (modelo multivariado)")
+
+grid()
+end.rcode-->
+</div>
+
+<p>
+El gráfico representa la probabilidad ajustada de aceptar un préstamo personal
+según el ingreso, manteniendo constantes el resto de las variables explicativas.
+La relación positiva entre ingreso y probabilidad de aceptación se mantiene clara
+y pronunciada.
+</p>
+
+<p>
+Esto confirma que el ingreso no solo es relevante en análisis simples, sino que
+actúa como un driver estructural de la aceptación del préstamo incluso cuando se
+controla por edad, tamaño de familia, nivel educativo y deuda hipotecaria.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este resultado valida el uso del ingreso como
+criterio central para priorizar clientes en campañas de préstamos personales,
+reduciendo costos y aumentando la tasa de conversión.
+</p>
+
+<h4>Odds Ratios</h4>
+
+<div>
+
+<!--begin.rcode
+# Calcular odds ratios
+odds_ratios <- exp(coef(modelo_logit_multi))
+
+# Eliminar intercepto para el gráfico
+odds_ratios_plot <- odds_ratios[names(odds_ratios) != "(Intercept)"]
+
+# Gráfico de barras
+barplot(
+  odds_ratios_plot,
+  horiz = TRUE,
+  col = "#60a5fa",
+  border = NA,
+  xlab = "Odds Ratio",
+  main = "Impacto de las variables en la probabilidad de aceptar el préstamo"
+)
+
+abline(v = 1, lty = 2, col = "red")
+end.rcode-->
+
+</div>
+
+<p>
+El gráfico de odds ratios permite interpretar visualmente el impacto relativo de
+cada variable explicativa sobre la probabilidad de aceptar un préstamo personal.
+La línea vertical roja representa un odds ratio igual a 1, que indica ausencia
+de efecto.
+</p>
+
+<p>
+Variables con odds ratios mayores a 1 incrementan la probabilidad de aceptación,
+mientras que valores cercanos o inferiores a 1 indican un efecto débil o nulo.
+En particular, el ingreso y el nivel educativo destacan como los principales
+drivers de conversión.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este gráfico facilita la priorización de
+variables clave para la segmentación y el diseño de campañas comerciales
+focalizadas.
+</p>
+
+
+<p>
+Los odds ratios permiten interpretar los coeficientes del modelo en términos
+prácticos. Por ejemplo, un aumento en el ingreso incrementa multiplicativamente
+las probabilidades relativas de aceptar el préstamo, reforzando su rol como
+principal driver de conversión.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.5 INTERPRETACIÓN GLOBAL                             -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.5 Interpretación de resultados</h3>
+
+<p>
+En regresión logística, los coeficientes representan cambios en el log-odds de
+aceptación. Un coeficiente positivo implica un aumento en la probabilidad, mientras
+que uno negativo indica una disminución.
+</p>
+
+<p>
+Desde una perspectiva aplicada, el modelo permite priorizar clientes con mayor
+probabilidad de conversión, optimizando recursos comerciales.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 5.6 CONCLUSIONES DE NEGOCIO                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>5.6 Conclusiones del análisis </h3>
+
+<p>
+La regresión logística identifica perfiles de clientes con mayor probabilidad de
+aceptar un préstamo personal. El ingreso y el nivel educativo emergen como los
+principales drivers de conversión.
+</p>
+
+<ul>
+  <li>Mejora la segmentación de campañas.</li>
+  <li>Reduce costos comerciales.</li>
+  <li>Aumenta la tasa de aceptación.</li>
+</ul>
+
+<p>
+En síntesis, este modelo convierte datos históricos en una herramienta predictiva
+clave para la toma de decisiones estratégicas.
+</p>
+</div>
+</div>
+
+</div>

@@ -1,2 +1,373 @@
-<h2>Análisis de Regresión</h2>
-<p class="section-tag-alert">Próximamente</p>
+<header class="section-header">
+  <p class="section-kicker">Fase 4</p>
+  <h2>Análisis de Regresión – Drivers de Valor del Cliente</h2>
+  <p class="section-subtitle">
+    En esta fase se pasa del análisis descriptivo a la explicación del
+    comportamiento del cliente. El objetivo es identificar qué variables
+    explican el gasto con tarjeta y cómo estos resultados pueden utilizarse
+    para la toma de decisiones de negocio.
+  </p>
+</header>
+
+<div class="section-block">
+
+<!-- ===================================================== -->
+<!-- 4.1 PREGUNTA DE REGRESIÓN                             -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.1 Preguntas que pueden responderse con un modelo de regresión</h3>
+
+<p>
+A partir del análisis exploratorio previo, se plantea la siguiente pregunta
+principal:
+</p>
+
+<p>
+<strong>
+¿Qué características socioeconómicas explican el gasto promedio mensual
+con tarjeta de crédito (CCAvg)?
+</strong>
+</p>
+
+<p>
+Esta pregunta es clave desde el punto de vista del negocio, ya que el gasto con
+tarjeta funciona como un indicador directo de rentabilidad, nivel de uso de los
+productos financieros y potencial de crecimiento futuro del cliente.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.2 MARCO CONCEPTUAL                                  -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.2 Descripción del problema y relación conceptual entre variables</h3>
+
+<p>
+La variable dependiente del análisis es <strong>CCAvg</strong>, que mide el gasto
+promedio mensual con tarjeta de crédito. Esta variable resume la intensidad de
+uso de uno de los productos más relevantes para la entidad financiera.
+</p>
+
+<p>
+Las variables independientes seleccionadas capturan distintos aspectos del
+perfil del cliente:
+</p>
+
+<ul>
+  <li><strong>Income</strong>: capacidad económica y potencial de consumo.</li>
+  <li><strong>Age</strong>: etapa del ciclo de vida.</li>
+  <li><strong>Family</strong>: compromisos y necesidades financieras.</li>
+  <li><strong>Education</strong>: nivel de sofisticación financiera.</li>
+  <li><strong>Mortgage</strong>: grado de vinculación bancaria.</li>
+</ul>
+
+<p>
+Desde un enfoque conceptual, se espera que clientes con mayor ingreso, mayor
+nivel educativo y mayor vinculación financiera presenten un gasto más elevado
+con tarjeta de crédito.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.3 REGRESIÓN LINEAL SIMPLE                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.3 Regresión lineal simple (Income → CCAvg)</h3>
+
+<p>
+Como primer paso, se ajusta un modelo de regresión lineal simple para analizar la
+relación entre el ingreso anual del cliente y su gasto promedio mensual con
+tarjeta de crédito.
+</p>
+
+<div>
+<!--begin.rcode
+modelo_simple <- lm(CCAvg ~ Income, data = datos)
+plot(datos$Income, datos$CCAvg,
+     pch = 16,
+     col = rgb(0.2, 0.4, 0.6, 0.4),
+     xlab = "Ingreso anual del cliente",
+     ylab = "Gasto promedio mensual con tarjeta",
+     main = "Regresión lineal simple: Income vs CCAvg")
+
+abline(modelo_simple, col = "#B22222", lwd = 3)
+end.rcode-->
+</div>
+
+<p>
+El diagrama de dispersión y la recta de regresión muestran una relación positiva
+clara entre el ingreso anual y el gasto con tarjeta. A medida que el ingreso
+aumenta, el gasto tiende a incrementarse de forma sostenida, lo que indica que la
+capacidad económica es un factor clave del consumo financiero.
+</p>
+
+<p>
+El valor del R² sugiere que el ingreso por sí solo explica una proporción
+relevante de la variabilidad del gasto, aunque también deja en evidencia que
+existen otros factores que influyen en el comportamiento del cliente y que no
+son capturados por este modelo simple.
+</p>
+
+<p>
+Desde el punto de vista del negocio, este resultado respalda la priorización de
+clientes de mayor ingreso para productos premium y estrategias de aumento de
+límites de crédito.
+</p>
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.4 ANÁLISIS BIVARIADO                                -->
+<!-- ===================================================== -->
+<div class="card">
+<h3>4.4 Análisis bivariado – Interpretación detallada</h3>
+
+<!-- ========== Income ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Income y CCAvg</h4>
+
+<div>
+<!--begin.rcode
+plot(datos$Income, datos$CCAvg,
+     pch=16, col=rgb(0.2,0.4,0.6,0.4),
+     xlab="Income", ylab="CCAvg")
+abline(lm(CCAvg ~ Income, data=datos), col="red", lwd=2)
+end.rcode-->
+</div>
+
+<p>
+El diagrama de dispersión muestra una relación positiva clara y consistente entre
+el ingreso anual y el gasto con tarjeta. A medida que el ingreso aumenta, el gasto
+tiende a incrementarse de forma casi monótona, confirmando que la capacidad
+económica es un determinante central del consumo financiero.
+</p>
+
+<p>
+Si bien existe dispersión individual, la tendencia general es claramente
+creciente. Desde el punto de vista del negocio, los clientes de mayor ingreso
+representan un segmento prioritario para productos de alto valor y ampliación de
+límites de crédito.
+</p>
+</div>
+
+<!-- ========== Age ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Age y CCAvg</h4>
+
+<div>
+<!--begin.rcode
+plot(datos$Age, datos$CCAvg,
+     pch=16, col=rgb(0.2,0.4,0.6,0.4),
+     xlab="Age", ylab="CCAvg")
+abline(lm(CCAvg ~ Age, data=datos), col="red", lwd=2)
+end.rcode-->
+</div>
+
+<p>
+El gráfico no muestra una relación lineal fuerte entre la edad y el gasto con
+tarjeta. La nube de puntos es dispersa y la pendiente de la recta de regresión es
+baja, lo que sugiere que la edad por sí sola no explica significativamente el
+consumo.
+</p>
+
+<p>
+Esto indica que el efecto de la edad está mediado por otras variables, como el
+ingreso o la etapa laboral. Desde el negocio, segmentar únicamente por edad
+resulta insuficiente para predecir el comportamiento financiero.
+</p>
+</div>
+
+<!-- ========== Family ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Family y CCAvg</h4>
+
+<div>
+<!--begin.rcode
+plot(datos$Family, datos$CCAvg,
+     pch=16, col=rgb(0.2,0.4,0.6,0.4),
+     xlab="Family", ylab="CCAvg")
+abline(lm(CCAvg ~ Family, data=datos), col="red", lwd=2)
+end.rcode-->
+</div>
+
+<p>
+El tamaño de la familia muestra una relación débil y altamente dispersa con el
+gasto con tarjeta. No se observa una tendencia clara que indique que hogares más
+numerosos gasten sistemáticamente más o menos.
+</p>
+
+<p>
+Este resultado sugiere que Family no es un driver directo del gasto, y que su
+efecto podría perder relevancia al ser incorporado en un modelo multivariado.
+</p>
+</div>
+
+<!-- ========== Education ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Education y CCAvg</h4>
+
+<div>
+<!--begin.rcode
+boxplot(CCAvg ~ Education, data=datos,
+        xlab="Education", ylab="CCAvg")
+end.rcode-->
+</div>
+
+<p>
+El boxplot evidencia diferencias claras entre niveles educativos. Los clientes
+con mayor educación presentan medianas de gasto más altas y mayor variabilidad en
+el consumo, lo que sugiere un perfil financiero más sofisticado.
+</p>
+
+<p>
+Desde el punto de vista del negocio, el nivel educativo es una variable útil para
+identificar clientes con mayor potencial de adopción de productos financieros
+complejos.
+</p>
+</div>
+
+<!-- ========== Mortgage ========== -->
+<div class="bivariado-item">
+<h4>Relación entre Mortgage y CCAvg</h4>
+
+<div>
+<!--begin.rcode
+plot(datos$Mortgage, datos$CCAvg,
+     pch=16, col=rgb(0.2,0.4,0.6,0.4),
+     xlab="Mortgage", ylab="CCAvg")
+abline(lm(CCAvg ~ Mortgage, data=datos), col="red", lwd=2)
+end.rcode-->
+</div>
+
+<p>
+La relación entre el monto de la hipoteca y el gasto con tarjeta es positiva
+moderada. Los clientes con hipoteca tienden a gastar más, lo que puede
+interpretarse como una señal de mayor bancarización.
+</p>
+
+<p>
+Desde el negocio, la hipoteca actúa como indicador de vinculación y abre
+oportunidades claras de cross-selling.
+</p>
+</div>
+
+<!-- ========== Cierre ========== -->
+<p>
+En conjunto, el análisis bivariado muestra que no todas las variables tienen el
+mismo poder explicativo. El ingreso y el nivel educativo presentan relaciones más
+claras, mientras que edad y tamaño de familia muestran efectos más débiles o
+indirectos. Esto justifica el uso de un modelo multivariado.
+</p>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- 4.5 REGRESIÓN MULTIVARIADA                            -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.5 Regresión lineal multivariada</h3>
+
+<p>
+Finalmente, se ajusta un modelo de regresión lineal múltiple que permite analizar
+el efecto simultáneo de varias variables explicativas. Dado que la variable
+<strong>CCAvg</strong> presenta asimetría positiva, se aplica una transformación
+logarítmica para mejorar los supuestos del modelo.
+</p>
+
+<div>
+<!--begin.rcode
+datos$log_CCAvg <- log(datos$CCAvg + 0.01)
+datos$Education <- as.factor(datos$Education)
+
+modelo_multi <- lm(
+  log_CCAvg ~ Income + Age + Family + Education + Mortgage,
+  data = datos
+)
+
+par(mfrow = c(2,2))
+plot(modelo_multi)
+par(mfrow = c(1,1))
+end.rcode-->
+</div>
+
+<p>
+El modelo multivariado confirma que el ingreso es el principal driver del gasto
+con tarjeta, incluso luego de controlar por edad, tamaño de familia, nivel
+educativo y deuda hipotecaria.
+</p>
+
+<p>
+El nivel educativo mantiene un efecto positivo y significativo, lo que indica
+que existen diferencias estructurales en el comportamiento financiero más allá
+de la capacidad económica. En contraste, variables demográficas como la edad y
+el tamaño de la familia pierden relevancia al controlar por ingreso.
+</p>
+
+<p>
+Los gráficos de diagnóstico sugieren que la transformación logarítmica mejora el
+cumplimiento de los supuestos del modelo, reforzando la validez de las
+conclusiones obtenidas.
+</p>
+
+<div>
+<!--begin.rcode
+plot(datos$Income, datos$log_CCAvg,
+     pch = 16,
+     col = rgb(0.2, 0.6, 0.4, 0.4),
+     xlab = "Ingreso anual",
+     ylab = "log(CCAvg)",
+     main = "Ingreso y gasto controlando por otras variables")
+
+abline(lm(log_CCAvg ~ Income, data = datos), col = "#006400", lwd = 3)
+end.rcode-->
+</div>
+
+<p>
+Este gráfico refuerza que el ingreso mantiene un efecto positivo sobre el gasto
+incluso cuando se consideran otras variables explicativas, consolidando su rol
+como principal driver de valor.
+</p>
+</div>
+
+
+<!-- ===================================================== -->
+<!-- 4.6 CONCLUSIONES DE NEGOCIO                           -->
+<!-- ===================================================== -->
+
+<div class="card">
+<h3>4.6 Conclusiones del análisis</h3>
+
+<p>
+El análisis de regresión realizado en esta fase permite identificar con claridad
+los principales <strong>drivers de valor del cliente</strong>. El gasto con
+tarjeta de crédito no depende únicamente de variables demográficas, sino
+fundamentalmente de la capacidad económica y del perfil educativo.
+</p>
+
+<p>
+Desde una perspectiva estratégica, estos resultados aportan evidencia empírica
+para respaldar estrategias de segmentación basadas en valor, priorizando a los
+clientes con mayor potencial de rentabilidad.
+</p>
+
+<p>
+En términos operativos, este análisis puede ser utilizado para:
+</p>
+
+<ul>
+  <li>Definir límites de crédito más ajustados al perfil del cliente.</li>
+  <li>Identificar segmentos prioritarios para productos premium.</li>
+  <li>Diseñar campañas de cross-selling basadas en datos objetivos.</li>
+</ul>
+
+<p>
+En síntesis, la regresión transforma información histórica en
+<strong>criterios analíticos concretos</strong> que apoyan la toma de decisiones
+estratégicas del banco.
+</p>
+</div>
+
+</div>
