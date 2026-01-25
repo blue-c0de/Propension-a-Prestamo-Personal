@@ -131,6 +131,10 @@
   FROM clientes_prestamo
   GROUP BY hipotecario;</code></pre>
   
+  <blockquote class="quote-business-red">
+      Tiene.Hipoteca: Valor de hipoteca, si existiera. ($000)
+    </blockquote>
+  
     <div class="terminal">
   
 
@@ -532,41 +536,29 @@
   <h4>Lectura del dataset en R</h4>
 
 <div class="chunk" id="unnamed-chunk-7"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">install.packages</span><span class="hl def">(</span><span class="hl sng">&quot;readr&quot;</span><span class="hl def">)</span>
-</pre></div>
-<div class="message"><pre class="knitr r">## Installing package into '/cloud/lib/x86_64-pc-linux-gnu-library/4.5'
-## (as 'lib' is unspecified)
-</pre></div>
-<div class="source"><pre class="knitr r"><span class="hl kwd">library</span><span class="hl def">(readr)</span>
-<span class="hl def">clientes</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read_csv</span><span class="hl def">(</span><span class="hl sng">&quot;Model_creditoPersonal.csv&quot;</span><span class="hl def">)</span>
-</pre></div>
-<div class="message"><pre class="knitr r">## Rows: 5000 Columns: 14
-</pre></div>
-<div class="message"><pre class="knitr r">## ── Column specification ────────────────────────────────────────────────────────────────────────────
-## Delimiter: ","
-## dbl (14): ID, Age, Experience, Income, ZIP Code, Family, CCAvg, Education, Mortgage, Personal Lo...
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-</pre></div>
-<div class="source"><pre class="knitr r"><span class="hl kwd">head</span><span class="hl def">(clientes)</span>
-</pre></div>
-<div class="output"><pre class="knitr r">## # A tibble: 6 × 14
-##      ID   Age Experience Income `ZIP Code` Family CCAvg Education Mortgage `Personal Loan`
-##   &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt;
-## 1     1    25          1     49      91107      4   1.6         1        0               0
-## 2     2    45         19     34      90089      3   1.5         1        0               0
-## 3     3    39         15     11      94720      1   1           1        0               0
-## 4     4    35          9    100      94112      1   2.7         2        0               0
-## 5     5    35          8     45      91330      4   1           2        0               0
-## 6     6    37         13     29      92121      4   0.4         2      155               0
-## # ℹ 4 more variables: `Securities Account` &lt;dbl&gt;, `CD Account` &lt;dbl&gt;, Online &lt;dbl&gt;,
-## #   CreditCard &lt;dbl&gt;
-</pre></div>
-<div class="source"><pre class="knitr r"><span class="hl kwd">pretty_sql_table</span><span class="hl def">(</span><span class="hl kwd">head</span><span class="hl def">(clientes))</span>
-</pre></div>
-<div class="output"><pre class="knitr r">## [1] "\n\n ID   Age   Experience   Income   ZIP.Code   Family   CCAvg   Education   Mortgage  Personal.Loan   Securities.Account   CD.Account   Online   CreditCard \n---  ----  -----------  -------  ---------  -------  ------  ----------  ---------  --------------  -------------------  -----------  -------  -----------\n  1    25            1       49      91107        4     1.6           1          0  NO              SÍ                   NO           NO       NO         \n  2    45           19       34      90089        3     1.5           1          0  NO              SÍ                   NO           NO       NO         \n  3    39           15       11      94720        1     1.0           1          0  NO              NO                   NO           NO       NO         \n  4    35            9      100      94112        1     2.7           2          0  NO              NO                   NO           NO       NO         \n  5    35            8       45      91330        4     1.0           2          0  NO              NO                   NO           NO       SÍ         \n  6    37           13       29      92121        4     0.4           2        155  NO              NO                   NO           SÍ       NO         "
+<span class="hl kwd">library</span><span class="hl def">(readr)</span>
+<span class="hl def">clientes</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">read_csv</span><span class="hl def">(</span><span class="hl sng">&quot;../data/raw/Model_creditoPersonal.csv&quot;</span><span class="hl def">)</span>
+<span class="hl kwd">cat</span><span class="hl def">(</span><span class="hl sng">&quot;&lt;pre&gt;\n&quot;</span><span class="hl def">,</span> <span class="hl kwd">pretty_sql_table</span><span class="hl def">(</span><span class="hl kwd">head</span><span class="hl def">(clientes)),</span> <span class="hl sng">&quot;\n&lt;/pre&gt;&quot;</span><span class="hl def">)</span>
 </pre></div>
 </div></div>
+  
+  <div class="table-container">
+<div class="chunk" id="unnamed-chunk-8"><div class="rcode"><div class="output"><pre class="knitr r">## &lt;pre&gt;
+##  
+## 
+##  ID   Age   Experience   Income   ZIP.Code   Family   CCAvg   Education   Mortgage  Personal.Loan   Securities.Account   CD.Account   Online   CreditCard 
+## ---  ----  -----------  -------  ---------  -------  ------  ----------  ---------  --------------  -------------------  -----------  -------  -----------
+##   1    25            1       49      91107        4     1.6           1          0  NO              SÍ                   NO           NO       NO         
+##   2    45           19       34      90089        3     1.5           1          0  NO              SÍ                   NO           NO       NO         
+##   3    39           15       11      94720        1     1.0           1          0  NO              NO                   NO           NO       NO         
+##   4    35            9      100      94112        1     2.7           2          0  NO              NO                   NO           NO       NO         
+##   5    35            8       45      91330        4     1.0           2          0  NO              NO                   NO           NO       SÍ         
+##   6    37           13       29      92121        4     0.4           2        155  NO              NO                   NO           SÍ       NO          
+## &lt;/pre&gt;
+</pre></div>
+</div></div>
+  </div>
+
 
   <h4>Descripción de variables principales</h4>
 
@@ -581,6 +573,14 @@
     <li><strong>Online:</strong> Uso de banca digital.</li>
     <li><strong>CreditCard:</strong> Posee tarjeta emitida por otro banco.</li>
   </ul>
+  
+  <p>
+Las variables disponibles permiten capturar tres dimensiones clave del cliente:
+<strong>valor económico actual</strong>, <strong>potencial de crecimiento</strong> y
+<strong>nivel de vinculación financiera</strong>. Esta combinación habilita un análisis
+integral que va más allá de la simple descripción demográfica.
+</p>
+
 
   <h4>Sobre la fuente de datos</h4>
   <p>El dataset proviene de una campaña real donde se ofreció un préstamo personal a 5,000 clientes del banco. 

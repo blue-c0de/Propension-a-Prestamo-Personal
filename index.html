@@ -505,6 +505,10 @@ SÍ                            2984         291         0.0975201
   FROM clientes_prestamo
   GROUP BY hipotecario;</code></pre>
   
+  <blockquote class="quote-business-red">
+      Tiene.Hipoteca: Valor de hipoteca, si existiera. ($000)
+    </blockquote>
+  
     <div class="terminal">
   
 
@@ -1011,16 +1015,6 @@ integral que va más allá de la simple descripción demográfica.
     </li>
   </ul>
 
-  <p>
-    <em>Posible inconsistencia:</em> cuando más adelante cruzamos <strong>Age</strong>
-    con <strong>Experience</strong>, vemos algo importante: ambas variables están
-    <strong>casi perfectamente correlacionadas</strong> (correlación ≈ 0,99). Es decir,
-    prácticamente cuentan lo mismo: edad y años de experiencia laboral avanzan juntos.
-    Para el modelado, esto nos alerta de una posible <strong>multicolinealidad</strong>:
-    incluir las dos tal cual no aporta mucha información nueva y puede complicar
-    modelos lineales.
-  </p>
-
   <h4>Ingresos Anuales (Income)</h4>
 
   <!-- Resultado -->
@@ -1028,12 +1022,11 @@ integral que va más allá de la simple descripción demográfica.
 </div><div class="rimage default"><img src="figure/unnamed-chunk-30-1.png" alt="plot of chunk unnamed-chunk-30" class="plot" /></div><div class="rcode">
 
   </div>
-
-  <p>
-    La variable <strong>Income</strong> está medida en miles de USD al año. La media
-    ronda los <strong>74 mil USD</strong> y la mediana está en <strong>64 mil USD</strong>.
-    Los cuartiles son aproximadamente:
-  </p>
+  
+  <blockquote class="quote-business-red">
+    La variable <strong>Income</strong> está medida en miles de USD <strong>corrientes del año de la campaña</strong> (sin ajuste por inflación). En este contexto temporal, la media ronda los <strong>74 mil USD anuales</strong> y la mediana se sitúa en <strong>64 mil USD</strong>.
+  </blockquote>
+  
   <ul>
     <li>25% de los clientes gana menos de <strong>39 mil USD</strong>.</li>
     <li>El 50% está por debajo de <strong>64 mil USD</strong>.</li>
@@ -1052,12 +1045,12 @@ integral que va más allá de la simple descripción demográfica.
   <ul>
     <li>
       El banco trabaja sobre todo con clientes de ingresos medios, pero hay un
-      <strong>segmento de alto poder adquisitivo</strong> que podría ser clave para
+      <strong class="strong-red">segmento de ingresos relativamente altos dentro de la base de clientes (cuartil superior de Income)</strong> que podría ser clave para
       productos de préstamo (tickets más grandes, menos riesgo, más rentabilidad).
     </li>
     <li>
       La cola de altos ingresos sugiere que habrá <strong>outliers</strong> que debemos
-      vigilar: no están mal, pero pueden dominar estadísticas si no se tratan con cuidado.
+      <strong class="strong-red">tratar en el desarrollo del análisis</strong>: no están mal, pero pueden dominar estadísticas si no se tratan con cuidado.
     </li>
   </ul>
 
@@ -1102,6 +1095,28 @@ integral que va más allá de la simple descripción demográfica.
     productos de financiación como el préstamo personal.
   </p>
 
+  <blockquote class="quote-business-red">
+
+<p>
+A lo largo del análisis, conceptos como ingresos altos o gasto elevado se entienden
+siempre en términos relativos a la distribución del propio dataset, y no como
+comparaciones absolutas con la población general.
+</p>
+
+<p>
+Es importante notar que <strong>Income</strong> corresponde a ingresos <strong>anuales</strong>,
+mientras que <strong>CCAvg</strong> mide gasto <strong>mensual</strong>. A lo largo del análisis,
+ambas variables se interpretan de forma coherente con su escala temporal: el ingreso
+como capacidad económica estructural y el gasto con tarjeta como indicador de
+comportamiento financiero recurrente.
+</p>
+
+<ul>
+  <li><strong>Income</strong> responde a “qué puede pagar el cliente”.</li>
+  <li><strong>CCAvg</strong> responde a “cómo suele financiar su consumo”.</li>
+</ul>
+</blockquote>
+
   <h4>Variable objetivo: Aceptación del Préstamo (Personal.Loan)</h4>
 
   <!-- Resultado -->
@@ -1116,7 +1131,8 @@ integral que va más allá de la simple descripción demográfica.
   </div>
 
   <p>
-    La tabla de <strong>Personal.Loan</strong> es el primer golpe de realidad:
+    La tabla de <strong>Personal.Loan</strong>  <strong class="strong-red">muestra que la aceptación
+del préstamo personal es un evento poco frecuente en el dataset:</strong>
     de los 5000 clientes, <strong>solo 480 aceptaron el préstamo</strong> en la
     campaña previa, es decir, un <strong>9,6%</strong>. Los otros
     <strong>4520 clientes (90,4%)</strong> rechazaron la oferta.
@@ -1129,11 +1145,6 @@ integral que va más allá de la simple descripción demográfica.
     <li>
       El problema es un caso clásico de <strong>clase desbalanceada</strong>:
       el evento que queremos predecir (aceptar el préstamo) es minoritario.
-    </li>
-    <li>
-      Un modelo “tonto” que dijera siempre “no acepta” acertaría el 90% de las veces,
-      pero sería un desastre para el negocio porque no identificaría a nadie con
-      interés real.
     </li>
     <li>
       Desde ya sabemos que tendremos que cuidar las <strong>métricas de evaluación</strong>
@@ -1170,47 +1181,68 @@ integral que va más allá de la simple descripción demográfica.
     <strong>Personal.Loan</strong> es muy revelador: la caja de los clientes
     que aceptan el préstamo está desplazada hacia ingresos bastante más altos.
   </p>
+  
+  <blockquote class="quote-business-red">
+    <p>
+    El diagrama de cajas sugiere una relación positiva clara entre el nivel de ingresos
+    y la aceptación del préstamo personal. La distribución de <strong>Income</strong>
+    para los clientes que aceptan el préstamo presenta una mediana sustancialmente
+    más alta y una menor superposición con el grupo que no acepta.
+    </p>
 
-  <p>
-    Si dividimos los ingresos en cuatro grupos (cuartiles), la imagen se vuelve
-    muy clara:
-  </p>
-  <ul>
-    <li>
-      En el cuartil más bajo de ingresos (<strong>&lt; 39 mil USD</strong>),
-      <strong>prácticamente nadie acepta</strong> el préstamo.
-    </li>
-    <li>
-      En el segundo y tercer cuartil (entre <strong>39 y 98 mil USD</strong>),
-      la tasa de aceptación sube pero sigue siendo baja (en torno al
-      <strong>2–3%</strong>).
-    </li>
-    <li>
-      En el cuartil más alto (<strong>&gt; 98 mil USD</strong>), la tasa de
-      aceptación se dispara hasta alrededor del <strong>35%</strong>.
-    </li>
-  </ul>
+    <p>
+    En particular, se observa que los valores de ingresos asociados a la aceptación
+    del préstamo se concentran en la parte superior de la distribución total, lo que
+    indica que los clientes de mayores ingresos tienen una propensión significativamente
+    mayor a aceptar el producto.
+    </p>
+  </blockquote>
 
   <p>
     <em>Qué nos dice este boxplot:</em>
   </p>
+  
+  <blockquote class="quote-business-red">
   <ul>
     <li>
-      El préstamo personal <strong>no es un producto masivo</strong> en toda la
-      base, sino algo que resuena especialmente en clientes de
-      <strong>ingresos medio-altos y altos</strong>.
+      Existe una <strong>diferencia marcada en la distribución de ingresos</strong>
+      entre quienes aceptan y quienes no aceptan el préstamo.
     </li>
     <li>
-      Desde el punto de vista del negocio, la segmentación por ingresos es
-      prácticamente obligatoria: tiene poco sentido atacar con la misma
-      intensidad a todos los clientes.
+      El préstamo personal <strong>no se comporta como un producto homogéneo</strong>
+      en toda la base, sino que está asociado a clientes con niveles de ingreso
+      relativamente más altos.
     </li>
     <li>
-      Más adelante, en la fase de modelado, <strong>Income será una variable
-      central</strong>: está fuertemente correlacionada con la aceptación del
-      préstamo (correlación ≈ 0,50).
+      Desde el punto de vista del modelado, <strong>Income emerge como una variable
+      candidata clave</strong>, dada la clara separación observada entre ambos grupos.
     </li>
   </ul>
+  
+  <p>
+  Para profundizar en esta relación, se dividió la variable <strong>Income</strong>
+  en cuartiles y se calculó la tasa de aceptación del préstamo en cada grupo.
+  Este análisis complementario confirma el patrón observado en el boxplot.
+  </p>
+  </blockquote>
+  
+  <ul>
+    <li>
+      En el cuartil más bajo de ingresos (<strong>&lt; 39 mil USD</strong>),
+      la tasa de aceptación es prácticamente nula.
+    </li>
+    <li>
+      En los cuartiles intermedios (<strong>39–98 mil USD</strong>),
+      la aceptación aumenta ligeramente, pero se mantiene en niveles bajos
+      (≈ <strong>2–3%</strong>).
+    </li>
+    <li>
+      En el cuartil superior (<strong>&gt; 98 mil USD</strong>),
+      la tasa de aceptación aumenta de forma sustancial, hasta alrededor del
+      <strong>35%</strong>.
+    </li>
+  </ul>
+
 
   <h4>Gasto con Tarjeta (CCAvg) vs Aceptación</h4>
 
@@ -1223,11 +1255,20 @@ integral que va más allá de la simple descripción demográfica.
   <p>
     El boxplot de <strong>CCAvg</strong> por aceptación muestra un patrón similar:
     los clientes que aceptan el préstamo presentan un <strong>gasto medio con
-    tarjeta claramente superior</strong>, con una cola más larga hacia valores altos.
+    tarjeta claramente superior</strong>, <span class="strong-red">así como una <strong>mayor dispersión</strong> y </span> una cola más
+pronunciada hacia valores altos.
   </p>
+  
+  <blockquote class="quote-business-red">
+  <p>
+La superposición entre ambos grupos es limitada en la parte superior de la
+distribución, lo que sugiere que el gasto elevado con tarjeta está asociado a
+una mayor propensión a aceptar el préstamo personal.
+</p>
+  </blockquote>
 
   <p>
-    Si hacemos el mismo ejercicio de cuartiles:
+    <span class="strong-red">Si hacemos el mismo ejercicio de cuartiles:</span>
   </p>
   <ul>
     <li>
@@ -1243,23 +1284,37 @@ integral que va más allá de la simple descripción demográfica.
   <p>
     <em>Qué nos dice este boxplot:</em>
   </p>
+  <blockquote class="quote-business-red">
   <ul>
     <li>
-      El préstamo personal tiene más tracción en clientes que ya son
-      <strong>usuarios intensivos del crédito</strong> a través de la tarjeta.
+      La mediana del <strong>gasto con tarjeta (CCAvg)</strong> es claramente mayor
+      en los clientes que aceptan el préstamo en comparación con aquellos que no
+      lo aceptan, lo que indica una asociación positiva entre mayor gasto y
+      aceptación.
     </li>
     <li>
-      De cara a campañas futuras, tiene sentido priorizar a clientes con gasto
-      en tarjeta alto: ya están acostumbrados a financiar parte de su consumo
-      con el banco.
+      La distribución completa del gasto (rango intercuartílico) para los clientes
+      que aceptan el préstamo se encuentra desplazada hacia valores más altos,
+      lo que sugiere que el gasto típico en este grupo es superior.
     </li>
     <li>
-      A nivel estadístico, <strong>CCAvg también está fuertemente vinculada a
-      Income</strong> (correlación ≈ 0,65). Es decir, ingresos y gasto se mueven
-      juntos; a la hora de modelar tendremos que controlar esta relación para
-      evitar redundancias.
+      El grupo de clientes que acepta el préstamo presenta una
+      <strong>mayor dispersión</strong> en los niveles de gasto con tarjeta, lo que
+      refleja una mayor heterogeneidad en sus patrones de consumo.
+    </li>
+    <li>
+      Se observa una <strong>cola derecha más larga</strong> en la distribución de
+      CCAvg para los clientes que aceptan el préstamo, indicando la presencia de
+      usuarios intensivos de tarjeta con gastos elevados.
+    </li>
+    <li>
+      A pesar de la diferencia entre distribuciones, existe
+      <strong>superposición parcial</strong> entre ambos grupos, por lo que el gasto
+      con tarjeta por sí solo no permite una separación perfecta entre clientes
+      que aceptan y que no aceptan el préstamo.
     </li>
   </ul>
+  </blockquote>
 
   <h4>Otras relaciones relevantes (sin gráfico, pero clave)</h4>
 
@@ -1295,6 +1350,17 @@ integral que va más allá de la simple descripción demográfica.
       más profunda con el banco, pero no son el factor decisivo.
     </li>
   </ul>
+  
+  <blockquote class="quote-business-red">
+    <p>
+    Aunque una tasa de aceptación cercana al <strong>10%</strong> podría no parecer
+    especialmente baja a primera vista, en el contexto de <strong>modelos de
+    clasificación binaria</strong> se considera un evento <strong>claramente minoritario</strong>.
+    Esto implica que, si se predijera siempre la clase mayoritaria (“no acepta”),
+    se obtendría una accuracy cercana al <strong>90%</strong> sin aportar ningún valor
+    al negocio.
+    </p>
+  </blockquote>
 </section>
 
 
@@ -1365,6 +1431,31 @@ integral que va más allá de la simple descripción demográfica.
       </ul>
     </li>
   </ul>
+  
+  <blockquote class="quote-business-red">
+  <p>
+Las correlaciones mencionadas a lo largo del análisis se han calculado utilizando
+el <strong>coeficiente de correlación de Pearson</strong> para pares de variables
+numéricas. En el caso de relaciones entre una variable continua y la variable
+objetivo binaria (<strong>Personal.Loan</strong>, codificada como 0/1), este
+coeficiente es equivalente a la <strong>correlación punto-biserial</strong>.
+</p>
+
+<p>
+Esta medida cuantifica hasta qué punto los valores medios de la variable continua
+difieren entre los dos grupos definidos por la variable binaria, proporcionando
+una primera aproximación lineal a su relación.
+</p>
+
+<p>
+La correlación extremadamente alta (≈ <strong>0,99</strong>) entre <strong>Age</strong>
+y <strong>Experience</strong> se debe a que ambas variables están casi
+determinísticamente relacionadas: la experiencia laboral suele ser aproximadamente
+la edad menos los años de educación inicial. Esta relación estructural explica la
+redundancia observada y justifica el riesgo de <strong>multicolinealidad</strong> en
+modelos lineales.
+</p>
+  </blockquote>
 </section>
 
 
@@ -1677,7 +1768,7 @@ indirectos. Esto justifica el uso de un modelo multivariado.
 <!-- ===================================================== -->
 
 <div class="card">
-<h3>4.5 Regresión lineal multivariada</h3>
+<h3>4.5 Regresión lineal múltiple</h3>
 
 <p>
 Finalmente, se ajusta un modelo de regresión lineal múltiple que permite analizar
@@ -1855,7 +1946,7 @@ sustancial, facilitando la focalización de campañas comerciales.
 <!-- ===================================================== -->
 
 <div class="card">
-<h3>5.4 Regresión logística multivariada</h3>
+<h3>5.4 Regresión logística multiple</h3>
 
 <div>
 </div><div class="rimage default"><img src="figure/unnamed-chunk-63-1.png" alt="plot of chunk unnamed-chunk-63" class="plot" /></div><div class="rcode">

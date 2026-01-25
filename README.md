@@ -1,6 +1,25 @@
 ## Introducción – Problema de Negocio
 El proyecto busca identificar qué clientes tienen mayor probabilidad de adquirir un préstamo personal, permitiendo focalizar esfuerzos comerciales y mejorar la eficiencia de campañas.
 
+## *Requisitos de instalación (ejecución local)
+
+Para garantizar la correcta ejecución del proyecto en un entorno local, es necesario instalar previamente los siguientes paquetes de R:
+
+```r
+install.packages(c("DBI", "RSQLite", "knitr"))
+```
+
+Estos paquetes se utilizan para:
+
+- **DBI**: conexión y manejo de bases de datos desde R.
+- **RSQLite**: creación y consulta de bases de datos SQLite.
+- **knitr**: generación del informe reproducible (RMarkdown / Rhtml).
+
+> ⚠️ **Nota:**  
+> La instalación de paquetes debe realizarse **una sola vez desde la consola de R**.  
+> El documento no instala paquetes automáticamente durante la compilación (*knit*) para asegurar reproducibilidad y evitar errores por configuración del sistema.
+
+
 ## Objetivo General
 Construir un modelo predictivo que estime la propensión de un cliente a solicitar un préstamo personal.
 

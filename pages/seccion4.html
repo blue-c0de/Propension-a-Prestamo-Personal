@@ -86,7 +86,8 @@ tarjeta de crédito.
 <div>
 <div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl def">modelo_simple</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">lm</span><span class="hl def">(CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Income,</span> <span class="hl kwc">data</span> <span class="hl def">= datos)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">plot</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Income, datos</span><span class="hl opt">$</span><span class="hl def">CCAvg,</span>
      <span class="hl kwc">pch</span> <span class="hl def">=</span> <span class="hl num">16</span><span class="hl def">,</span>
@@ -95,11 +96,13 @@ tarjeta de crédito.
      <span class="hl kwc">ylab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Gasto promedio mensual con tarjeta&quot;</span><span class="hl def">,</span>
      <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Regresión lineal simple: Income vs CCAvg&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(modelo_simple,</span> <span class="hl kwc">col</span> <span class="hl def">=</span> <span class="hl sng">&quot;#B22222&quot;</span><span class="hl def">,</span> <span class="hl kwc">lwd</span> <span class="hl def">=</span> <span class="hl num">3</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'modelo_simple' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'modelo_simple' no encontrado
 </pre></div>
 </div></div>
 </div>
@@ -140,11 +143,13 @@ límites de crédito.
      <span class="hl kwc">pch</span><span class="hl def">=</span><span class="hl num">16</span><span class="hl def">,</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl kwd">rgb</span><span class="hl def">(</span><span class="hl num">0.2</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">,</span><span class="hl num">0.6</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">),</span>
      <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Income&quot;</span><span class="hl def">,</span> <span class="hl kwc">ylab</span><span class="hl def">=</span><span class="hl sng">&quot;CCAvg&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(</span><span class="hl kwd">lm</span><span class="hl def">(CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Income,</span> <span class="hl kwc">data</span><span class="hl def">=datos),</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl sng">&quot;red&quot;</span><span class="hl def">,</span> <span class="hl kwc">lwd</span><span class="hl def">=</span><span class="hl num">2</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 </div></div>
 </div>
@@ -173,11 +178,13 @@ límites de crédito.
      <span class="hl kwc">pch</span><span class="hl def">=</span><span class="hl num">16</span><span class="hl def">,</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl kwd">rgb</span><span class="hl def">(</span><span class="hl num">0.2</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">,</span><span class="hl num">0.6</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">),</span>
      <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Age&quot;</span><span class="hl def">,</span> <span class="hl kwc">ylab</span><span class="hl def">=</span><span class="hl sng">&quot;CCAvg&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(</span><span class="hl kwd">lm</span><span class="hl def">(CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Age,</span> <span class="hl kwc">data</span><span class="hl def">=datos),</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl sng">&quot;red&quot;</span><span class="hl def">,</span> <span class="hl kwc">lwd</span><span class="hl def">=</span><span class="hl num">2</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 </div></div>
 </div>
@@ -205,11 +212,13 @@ resulta insuficiente para predecir el comportamiento financiero.
      <span class="hl kwc">pch</span><span class="hl def">=</span><span class="hl num">16</span><span class="hl def">,</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl kwd">rgb</span><span class="hl def">(</span><span class="hl num">0.2</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">,</span><span class="hl num">0.6</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">),</span>
      <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Family&quot;</span><span class="hl def">,</span> <span class="hl kwc">ylab</span><span class="hl def">=</span><span class="hl sng">&quot;CCAvg&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(</span><span class="hl kwd">lm</span><span class="hl def">(CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Family,</span> <span class="hl kwc">data</span><span class="hl def">=datos),</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl sng">&quot;red&quot;</span><span class="hl def">,</span> <span class="hl kwc">lwd</span><span class="hl def">=</span><span class="hl num">2</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 </div></div>
 </div>
@@ -234,7 +243,8 @@ efecto podría perder relevancia al ser incorporado en un modelo multivariado.
 <div class="chunk" id="unnamed-chunk-5"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">boxplot</span><span class="hl def">(CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Education,</span> <span class="hl kwc">data</span><span class="hl def">=datos,</span>
         <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Education&quot;</span><span class="hl def">,</span> <span class="hl kwc">ylab</span><span class="hl def">=</span><span class="hl sng">&quot;CCAvg&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(m$data, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 </div></div>
 </div>
@@ -261,11 +271,13 @@ complejos.
      <span class="hl kwc">pch</span><span class="hl def">=</span><span class="hl num">16</span><span class="hl def">,</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl kwd">rgb</span><span class="hl def">(</span><span class="hl num">0.2</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">,</span><span class="hl num">0.6</span><span class="hl def">,</span><span class="hl num">0.4</span><span class="hl def">),</span>
      <span class="hl kwc">xlab</span><span class="hl def">=</span><span class="hl sng">&quot;Mortgage&quot;</span><span class="hl def">,</span> <span class="hl kwc">ylab</span><span class="hl def">=</span><span class="hl sng">&quot;CCAvg&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(</span><span class="hl kwd">lm</span><span class="hl def">(CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Mortgage,</span> <span class="hl kwc">data</span><span class="hl def">=datos),</span> <span class="hl kwc">col</span><span class="hl def">=</span><span class="hl sng">&quot;red&quot;</span><span class="hl def">,</span> <span class="hl kwc">lwd</span><span class="hl def">=</span><span class="hl num">2</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 </div></div>
 </div>
@@ -297,7 +309,7 @@ indirectos. Esto justifica el uso de un modelo multivariado.
 <!-- ===================================================== -->
 
 <div class="card">
-<h3>4.5 Regresión lineal multivariada</h3>
+<h3>4.5 Regresión lineal múltiple</h3>
 
 <p>
 Finalmente, se ajusta un modelo de regresión lineal múltiple que permite analizar
@@ -309,23 +321,27 @@ logarítmica para mejorar los supuestos del modelo.
 <div>
 <div class="chunk" id="unnamed-chunk-7"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl def">datos</span><span class="hl opt">$</span><span class="hl def">log_CCAvg</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">log</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">CCAvg</span> <span class="hl opt">+</span> <span class="hl num">0.01</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl def">datos</span><span class="hl opt">$</span><span class="hl def">Education</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.factor</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Education)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl def">modelo_multi</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">lm</span><span class="hl def">(</span>
   <span class="hl def">log_CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Income</span> <span class="hl opt">+</span> <span class="hl def">Age</span> <span class="hl opt">+</span> <span class="hl def">Family</span> <span class="hl opt">+</span> <span class="hl def">Education</span> <span class="hl opt">+</span> <span class="hl def">Mortgage,</span>
   <span class="hl kwc">data</span> <span class="hl def">= datos</span>
 <span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">par</span><span class="hl def">(</span><span class="hl kwc">mfrow</span> <span class="hl def">=</span> <span class="hl kwd">c</span><span class="hl def">(</span><span class="hl num">2</span><span class="hl def">,</span><span class="hl num">2</span><span class="hl def">))</span>
 <span class="hl kwd">plot</span><span class="hl def">(modelo_multi)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'modelo_multi' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'modelo_multi' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">par</span><span class="hl def">(</span><span class="hl kwc">mfrow</span> <span class="hl def">=</span> <span class="hl kwd">c</span><span class="hl def">(</span><span class="hl num">1</span><span class="hl def">,</span><span class="hl num">1</span><span class="hl def">))</span>
 </pre></div>
@@ -359,11 +375,13 @@ conclusiones obtenidas.
      <span class="hl kwc">ylab</span> <span class="hl def">=</span> <span class="hl sng">&quot;log(CCAvg)&quot;</span><span class="hl def">,</span>
      <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Ingreso y gasto controlando por otras variables&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(</span><span class="hl kwd">lm</span><span class="hl def">(log_CCAvg</span> <span class="hl opt">~</span> <span class="hl def">Income,</span> <span class="hl kwc">data</span> <span class="hl def">= datos),</span> <span class="hl kwc">col</span> <span class="hl def">=</span> <span class="hl sng">&quot;#006400&quot;</span><span class="hl def">,</span> <span class="hl kwc">lwd</span> <span class="hl def">=</span> <span class="hl num">3</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 </div></div>
 </div>

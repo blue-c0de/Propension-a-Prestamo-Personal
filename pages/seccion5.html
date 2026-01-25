@@ -50,7 +50,8 @@ múltiple, asegurando coherencia entre modelos explicativos y predictivos.
 
 <div class="chunk" id="unnamed-chunk-1"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl def">datos</span><span class="hl opt">$</span><span class="hl def">Education</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">as.factor</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Education)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 </div></div>
 </div>
@@ -69,12 +70,14 @@ múltiple, asegurando coherencia entre modelos explicativos y predictivos.
   <span class="hl kwc">family</span> <span class="hl def">= binomial</span>
 <span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl com"># Secuencia de ingresos</span>
 <span class="hl def">ingresos_seq</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">seq</span><span class="hl def">(</span><span class="hl kwd">min</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Income),</span> <span class="hl kwd">max</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Income),</span> <span class="hl kwc">length.out</span> <span class="hl def">=</span> <span class="hl num">200</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl com"># Predicción de probabilidades</span>
 <span class="hl def">prob_simple</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">predict</span><span class="hl def">(</span>
@@ -83,7 +86,8 @@ múltiple, asegurando coherencia entre modelos explicativos y predictivos.
   <span class="hl kwc">type</span> <span class="hl def">=</span> <span class="hl sng">&quot;response&quot;</span>
 <span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'modelo_logit_simple' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'modelo_logit_simple' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl com"># Gráfico</span>
 <span class="hl kwd">plot</span><span class="hl def">(ingresos_seq, prob_simple,</span>
@@ -94,11 +98,13 @@ múltiple, asegurando coherencia entre modelos explicativos y predictivos.
      <span class="hl kwc">ylab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad de aceptar el préstamo&quot;</span><span class="hl def">,</span>
      <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad estimada de aceptación según ingreso&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'ingresos_seq' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'ingresos_seq' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">grid</span><span class="hl def">()</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+<div class="error"><pre class="knitr r">## Error in `int_abline()`:
+## ! plot.new has not been called yet
 </pre></div>
 </div></div>
 </div>
@@ -128,7 +134,7 @@ sustancial, facilitando la focalización de campañas comerciales.
 <!-- ===================================================== -->
 
 <div class="card">
-<h3>5.4 Regresión logística multivariada</h3>
+<h3>5.4 Regresión logística multiple</h3>
 
 <div>
 <div class="chunk" id="unnamed-chunk-3"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl def">modelo_logit_multi</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">glm</span><span class="hl def">(</span>
@@ -137,7 +143,8 @@ sustancial, facilitando la focalización de campañas comerciales.
   <span class="hl kwc">family</span> <span class="hl def">= binomial</span>
 <span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in eval(mf, parent.frame()): objeto 'datos' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'datos' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl com"># Valores promedio para el resto de variables</span>
 <span class="hl def">newdata_multi</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">data.frame</span><span class="hl def">(</span>
@@ -148,7 +155,8 @@ sustancial, facilitando la focalización de campañas comerciales.
   <span class="hl kwc">Mortgage</span> <span class="hl def">=</span> <span class="hl kwd">mean</span><span class="hl def">(datos</span><span class="hl opt">$</span><span class="hl def">Mortgage)</span>
 <span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'ingresos_seq' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'ingresos_seq' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl def">prob_multi</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">predict</span><span class="hl def">(</span>
   <span class="hl def">modelo_logit_multi,</span>
@@ -156,7 +164,8 @@ sustancial, facilitando la focalización de campañas comerciales.
   <span class="hl kwc">type</span> <span class="hl def">=</span> <span class="hl sng">&quot;response&quot;</span>
 <span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'modelo_logit_multi' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'modelo_logit_multi' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">plot</span><span class="hl def">(ingresos_seq, prob_multi,</span>
      <span class="hl kwc">type</span> <span class="hl def">=</span> <span class="hl sng">&quot;l&quot;</span><span class="hl def">,</span>
@@ -166,11 +175,13 @@ sustancial, facilitando la focalización de campañas comerciales.
      <span class="hl kwc">ylab</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad ajustada de aceptación&quot;</span><span class="hl def">,</span>
      <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Probabilidad ajustada (modelo multivariado)&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'ingresos_seq' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'ingresos_seq' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">grid</span><span class="hl def">()</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+<div class="error"><pre class="knitr r">## Error in `int_abline()`:
+## ! plot.new has not been called yet
 </pre></div>
 </div></div>
 </div>
@@ -201,12 +212,14 @@ reduciendo costos y aumentando la tasa de conversión.
 <div class="chunk" id="unnamed-chunk-4"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl com"># Calcular odds ratios</span>
 <span class="hl def">odds_ratios</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">exp</span><span class="hl def">(</span><span class="hl kwd">coef</span><span class="hl def">(modelo_logit_multi))</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'modelo_logit_multi' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'modelo_logit_multi' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl com"># Eliminar intercepto para el gráfico</span>
 <span class="hl def">odds_ratios_plot</span> <span class="hl kwb">&lt;-</span> <span class="hl def">odds_ratios[</span><span class="hl kwd">names</span><span class="hl def">(odds_ratios)</span> <span class="hl opt">!=</span> <span class="hl sng">&quot;(Intercept)&quot;</span><span class="hl def">]</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'odds_ratios' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'odds_ratios' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl com"># Gráfico de barras</span>
 <span class="hl kwd">barplot</span><span class="hl def">(</span>
@@ -218,11 +231,13 @@ reduciendo costos y aumentando la tasa de conversión.
   <span class="hl kwc">main</span> <span class="hl def">=</span> <span class="hl sng">&quot;Impacto de las variables en la probabilidad de aceptar el préstamo&quot;</span>
 <span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error: objeto 'odds_ratios_plot' no encontrado
+<div class="error"><pre class="knitr r">## Error:
+## ! objeto 'odds_ratios_plot' no encontrado
 </pre></div>
 <div class="source"><pre class="knitr r"><span class="hl kwd">abline</span><span class="hl def">(</span><span class="hl kwc">v</span> <span class="hl def">=</span> <span class="hl num">1</span><span class="hl def">,</span> <span class="hl kwc">lty</span> <span class="hl def">=</span> <span class="hl num">2</span><span class="hl def">,</span> <span class="hl kwc">col</span> <span class="hl def">=</span> <span class="hl sng">&quot;red&quot;</span><span class="hl def">)</span>
 </pre></div>
-<div class="error"><pre class="knitr r">## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+<div class="error"><pre class="knitr r">## Error in `int_abline()`:
+## ! plot.new has not been called yet
 </pre></div>
 </div></div>
 
